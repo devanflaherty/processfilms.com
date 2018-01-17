@@ -14,10 +14,10 @@
   "repeatable": true,
   "value": "work_posts.json"
 }, {
-  "id": "team_posts",
-  "name": "Team Posts",
+  "id": "roster_posts",
+  "name": "Roster Posts",
   "repeatable": true,
-  "value": "team_posts.json"
+  "value": "roster_posts.json"
 }, {
   "id": "menu",
   "name": "Menu",
