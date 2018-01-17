@@ -23,9 +23,5 @@
   "name": "Menu",
   "repeatable": false,
   "value": "menu.json"
-}, {
-  "id": "theme_settings",
-  "name": "Theme Settings",
-  "repeatable": false,
-  "value": "theme_settings.json"
-}]
+}
+]
