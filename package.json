@@ -1,0 +1,58 @@
+{
+  "name": "processfilms.com",
+  "version": "1.0.0",
+  "description": "Process Films Prismic and Nuxtjs site",
+  "author": "Devan Flaherty <hello@devanflaherty.com>",
+  "private": true,
+  "now": {
+    "alias": "processfilms"
+  },
+  "scripts": {
+    "dev": "backpack dev",
+    "build": "nuxt build && backpack build",
+    "start": "cross-env NODE_ENV=production node build/main.js",
+    "generate": "nuxt generate",
+    "precommit": "npm run lint",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+  },
+  "dependencies": {
+    "@nuxtjs/font-awesome": "^1.0.2",
+    "@nuxtjs/pwa": "^0.2.1",
+    "axios": "^0.16.2",
+    "babel-polyfill": "^6.26.0",
+    "bulma": "^0.5.3",
+    "cross-env": "^5.0.1",
+    "express": "^4.15.3",
+    "gsap": "^1.20.3",
+    "js-cookie": "^2.1.4",
+    "lodash": "^4.17.4",
+    "moment": "^2.19.1",
+    "node-sass": "^4.5.3",
+    "nuxt": "^1.0.0",
+    "prismic-dom": "^2.0.6",
+    "prismic-javascript": "^1.4.1",
+    "prismic-toolbar": "^0.0.5",
+    "sass-loader": "^6.0.6",
+    "scrollmagic": "^2.0.5",
+    "scrollreveal": "^3.3.6",
+    "source-map-support": "^0.4.15",
+    "sweet-scroll": "^2.2.1",
+    "swiper": "^4.0.3",
+    "vue-lazyload": "^1.1.4",
+    "vue-scroll-reveal": "^1.0.2",
+    "waypoints": "^4.0.1",
+    "webpack-jarvis": "^0.1.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "backpack-core": "^0.4.1",
+    "eslint": "^4.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^3.1.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  }
+}

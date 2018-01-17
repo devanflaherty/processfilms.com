@@ -1,0 +1,69 @@
+{
+  "Navigation" : {
+    "title" : {
+      "type" : "StructuredText",
+      "config" : {
+        "single" : "heading1, heading2, heading3, heading4, heading5, heading6",
+        "label" : "Title"
+      }
+    },
+    "navigation_menu" : {
+      "config" : {
+        "fields" : {
+          "link_label" : {
+            "config" : {
+              "label" : "Link Label"
+            },
+            "type" : "Text"
+          },
+          "link_url" : {
+            "type" : "Link",
+            "config" : {
+              "label" : "Link URL"
+            }
+          }
+        },
+        "label" : "Navigation Menu"
+      },
+      "type" : "Group"
+    }
+  },
+  "Contact" : {
+    "general" : {
+      "type" : "StructuredText",
+      "config" : {
+        "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
+        "label" : "General"
+      }
+    },
+    "new_business" : {
+      "type" : "StructuredText",
+      "config" : {
+        "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
+        "label" : "New Business"
+      }
+    }
+  },
+  "Connect" : {
+    "connect_menu" : {
+      "config" : {
+        "fields" : {
+          "link_label" : {
+            "config" : {
+              "label" : "Link Label"
+            },
+            "type" : "Text"
+          },
+          "link_url" : {
+            "type" : "Link",
+            "config" : {
+              "label" : "Link URL"
+            }
+          }
+        },
+        "label" : "Connect Menu"
+      },
+      "type" : "Group"
+    }
+  }
+}

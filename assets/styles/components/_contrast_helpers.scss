@@ -1,0 +1,83 @@
+.hero {
+  .title {
+    color: $black;
+  }
+  .subtitle {
+    color: #1e1e1e;
+  }
+}
+
+// Nav Hero Contrast Styles
+.hero-ui-Dark, .hero-contrast-Dark, .page-contrast-Dark:not(.hero-contrast-Light) {
+  // .navbar #navMenu .navbar-item {
+  //   color: black
+  // }
+  // .processLogo g.logoFill {
+  //   fill: black!important
+  // }
+  // .navbar .navbar-brand .nav-burg span {
+  //   &:before, &:after {
+  //     background: black;
+  //   }
+  // }
+}
+.hero-ui-Light, .hero-contrast-Light, .page-contrast-Light:not(.hero-contrast-Dark){
+  // .navbar #navMenu .navbar-item {
+  //   color: white
+  // }
+  // .navbar .navbar-brand .nav-burg span {
+  //   &:before, &:after {
+  //     background: white;
+  //   }
+  // }
+}
+
+// Page Contrast Styles //
+.page-contrast-Dark {
+  .opening-headline > * {
+    color: $black;
+  }
+  h1, h2, h3, h4, h5 {
+    color: $black;
+  }
+  p, div, li {
+    color: $grey-dark;
+  }
+
+  // LINKS
+  .rich-text a:not(.button), .rich-text a:not(.arrow), footer a {
+    color: $black;
+    &:before {
+      background: $black;
+    }
+    &:after {
+      background: $black;
+    }
+    &:hover {
+      color: $white;
+    }
+  }
+  .arrow {
+    color: $black;
+  }
+
+  // Component Specific
+  blockquote {
+    .author {
+      color: $grey-dark;
+    }
+  }
+
+  // Footer
+  footer {
+    h5 strong {
+      color: $black;
+    }
+    .new-business p {
+      color: $grey-dark;
+    }
+    #copyright p {
+      color: $grey-dark;
+    }
+  }
+}

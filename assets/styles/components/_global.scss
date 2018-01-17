@@ -1,0 +1,60 @@
+html, body {
+  background-color: $black;
+  color: $black;
+  letter-spacing: 0;
+  margin: 0;
+  transition: all .5s ease;
+}
+
+main {
+  transition: background-color .5s ease-out;
+}
+.push-top {
+  padding-top: 11rem;
+}
+.page-welcome {
+  padding-top: 6rem;
+  padding-bottom: 8rem;
+}
+@include mobile() {
+  .push-top {
+    padding-top: 8rem;
+  }
+  .page-welcome {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+// ORDER
+@include touch() {
+  .columns.flex {
+    display: flex;
+    flex-wrap: wrap;
+    .column {
+      flex: 1 0 100%;
+    }
+  }
+  .is-order-1-touch {
+    order: 1;
+  }
+  .is-order-2-touch {
+    order: 2;
+  }
+}
+
+// FLEX
+.flex-center-v {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.flex-center-h {
+  &-mobile {
+    @include touch() {
+      display: flex!important;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

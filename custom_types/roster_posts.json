@@ -1,0 +1,213 @@
+{
+  "Main" : {
+    "post_position" : {
+      "type" : "Number",
+      "config" : {
+        "label" : "Post Position"
+      }
+    },
+    "member_name" : {
+      "config" : {
+        "single" : "heading1",
+        "label" : "First & Last Name",
+        "placeholder" : "Jon Snow"
+      },
+      "type" : "StructuredText"
+    },
+    "uid" : {
+      "type" : "UID",
+      "config" : {
+        "label" : "Slug"
+      }
+    },
+    "member_position" : {
+      "type" : "Text",
+      "config" : {
+        "label" : "Position/Title",
+        "placeholder" : "Executive Creative Director / Principal"
+      }
+    },
+    "member_description" : {
+      "type" : "StructuredText",
+      "config" : {
+        "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
+        "label" : "Description"
+      }
+    },
+    "primary_color" : {
+      "type" : "Color",
+      "config" : {
+        "label" : "Primary Color"
+      }
+    },
+    "background_color" : {
+      "type" : "Color",
+      "config" : {
+        "label" : "Background Color"
+      }
+    },
+    "member_avatar" : {
+      "type" : "Image",
+      "config" : {
+        "constraint" : { },
+        "thumbnails" : [ {
+          "name" : "large",
+          "width" : 1600,
+          "height" : 1600
+        }, {
+          "name" : "thumb",
+          "width" : 800,
+          "height" : 800
+        } ],
+        "label" : "Avatar"
+      }
+    },
+    "member_hero" : {
+      "type" : "Image",
+      "config" : {
+        "constraint" : { },
+        "thumbnails" : [ {
+          "name" : "large",
+          "width" : 1600,
+          "height" : null
+        }, {
+          "name" : "placeholder",
+          "width" : 100,
+          "height" : null
+        } ],
+        "label" : "Member Hero"
+      }
+    },
+    "social_links" : {
+      "type" : "Group",
+      "config" : {
+        "fields" : {
+          "link_label" : {
+            "type" : "Text",
+            "config" : {
+              "label" : "Link Label"
+            }
+          },
+          "link_url" : {
+            "type" : "Link",
+            "config" : {
+              "label" : "Link URL"
+            }
+          }
+        },
+        "label" : "Social Links"
+      }
+    }
+  },
+  "Content" : {
+    "body" : {
+      "type" : "Slices",
+      "fieldset" : "Slice zone",
+      "config" : {
+        "choices" : {
+          "highlight" : {
+            "type" : "Slice",
+            "fieldset" : "Highlight",
+            "description" : "Highlight an image or video",
+            "icon" : "chrome_reader_mode",
+            "non-repeat" : {
+              "highlight_thumbnail" : {
+                "type" : "Image",
+                "config" : {
+                  "constraint" : {
+                    "width" : 1600,
+                    "height" : 900
+                  },
+                  "thumbnails" : [ ],
+                  "label" : "Highlight Thumbnail"
+                }
+              },
+              "highlight_caption" : {
+                "type" : "StructuredText",
+                "config" : {
+                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
+                  "label" : "Highlight Caption"
+                }
+              },
+              "highlight_embed" : {
+                "type" : "Embed",
+                "config" : {
+                  "label" : "Highlight Embed",
+                  "placeholder" : "http://embedUrl.com"
+                }
+              },
+              "highlight_body" : {
+                "type" : "StructuredText",
+                "config" : {
+                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
+                  "label" : "Highlight Body"
+                }
+              },
+              "highlight_placement" : {
+                "type" : "Select",
+                "config" : {
+                  "options" : [ "Left", "Right" ],
+                  "default_value" : "Left",
+                  "label" : "Highlight Placement"
+                }
+              }
+            },
+            "repeat" : { }
+          },
+          "columned_content" : {
+            "type" : "Slice",
+            "fieldset" : "Columned Content",
+            "description" : "Column layout for copy",
+            "icon" : "view_column",
+            "non-repeat" : {
+              "section_headline" : {
+                "type" : "StructuredText",
+                "config" : {
+                  "single" : "heading2, heading3",
+                  "label" : "Section Headline"
+                }
+              }
+            },
+            "repeat" : {
+              "column_image" : {
+                "type" : "Image",
+                "config" : {
+                  "constraint" : {
+                    "width" : 800
+                  },
+                  "thumbnails" : [ {
+                    "name" : "Thumbnail",
+                    "width" : 400,
+                    "height" : 400
+                  } ],
+                  "label" : "Column Image"
+                }
+              },
+              "layout" : {
+                "type" : "Select",
+                "config" : {
+                  "options" : [ "12", "9", "8", "6", "4", "3", "2" ],
+                  "default_value" : "12",
+                  "label" : "Layout"
+                }
+              },
+              "offset" : {
+                "type" : "Number",
+                "config" : {
+                  "label" : "Offset"
+                }
+              },
+              "content_body" : {
+                "type" : "StructuredText",
+                "config" : {
+                  "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
+                  "label" : "Content Body"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

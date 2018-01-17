@@ -1,0 +1,31 @@
+[{
+  "id": "home",
+  "name": "Home",
+  "repeatable": false,
+  "value": "home.json"
+}, {
+  "id": "pages",
+  "name": "Pages",
+  "repeatable": true,
+  "value": "pages.json"
+}, {
+  "id": "work_posts",
+  "name": "Work Posts",
+  "repeatable": true,
+  "value": "work_posts.json"
+}, {
+  "id": "team_posts",
+  "name": "Team Posts",
+  "repeatable": true,
+  "value": "team_posts.json"
+}, {
+  "id": "menu",
+  "name": "Menu",
+  "repeatable": false,
+  "value": "menu.json"
+}, {
+  "id": "theme_settings",
+  "name": "Theme Settings",
+  "repeatable": false,
+  "value": "theme_settings.json"
+}]

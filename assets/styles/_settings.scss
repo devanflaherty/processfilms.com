@@ -1,0 +1,37 @@
+// File: assets/styles/main.scss
+// 1. Import the initial variables
+$--columnGap: 20px;
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+@import url('https://rsms.me/inter/inter-ui.css');
+
+// Colors
+$white: $white;
+$black: #000;
+$primary: $white;
+$primary-invert: findColorInvert($primary);
+$grey-light: #efefef;
+$grey-medium: #999;
+$grey: #666;
+$grey-dark: #333;
+$blue: #72d0eb;
+$blue-invert: findColorInvert($blue);
+
+$modal-z: 95;
+$modal-background-background-color: rgba($white, 0.95);
+$modal-content-width: 90%;
+
+// Breakpoints
+// $tablet:	769px;
+// $desktop:	960px + (2 * $gap);
+// $widescreen:	1152px + (2 * $gap);
+// $fullhd: 1344px + (2 * $gap);
+
+$sans: 'Inter UI',"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; // "SF UI Text",-apple-system,BlinkMacSystemFont,
+$serif: "Georgia", serif;
+$family-primary: $sans;
+
+$lightW: 200;
+$regularW: 500;
+$mediumW: 600;
+$boldW: 800;
