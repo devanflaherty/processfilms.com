@@ -5,17 +5,25 @@ const createStore = () => {
     state: {
       primaryColor: '#000',
       backgroundColor: '#fff',
+      navColor: '#fff',
       loading: true,
       navVis: false,
       mobileNav: false,
       breakpoint: 0,
-      navigationMenu: null,
-      connectMenu: null,
-      contact: {
-        newBusiness: null,
-        general: null
+      navigationMenu: {
+        title: null,
+        menu: null
       },
-      teamSlugs: null
+      connectMenu: {
+        title: null,
+        menu: null
+      },
+      contactWidget: {
+        title: null,
+        widget: null
+      },
+      roster: {},
+      work: {}
     },
     getters: {
       primaryColor: state => {
@@ -23,6 +31,9 @@ const createStore = () => {
       },
       backgroundColor: state => {
         return state.backgroundColor
+      },
+      navColor: state => {
+        return state.navColor
       },
       loading: state => {
         return state.loading
@@ -42,11 +53,14 @@ const createStore = () => {
       connectMenu: state => {
         return state.connectMenu
       },
-      contact: state => {
-        return state.contact
+      contactWidget: state => {
+        return state.contactWidget
       },
-      teamSlugs: state => {
-        return state.teamSlugs
+      roster: state => {
+        return state.roster
+      },
+      work: state => {
+        return state.work
       }
     },
     mutations: {
@@ -55,6 +69,9 @@ const createStore = () => {
       },
       SET_BACKGROUND_COLOR (state, color) {
         state.backgroundColor = color
+      },
+      SET_NAV_COLOR (state, color) {
+        state.navColor = color
       },
       TOGGLE_LOADING (state, bool) {
         state.loading = bool
@@ -68,20 +85,34 @@ const createStore = () => {
       CHANGE_BREAKPOINT (state, bp) {
         state.breakpoint = bp
       },
-      SET_NAVIGATION_MENU (state, menu) {
-        state.navigationMenu = menu
+      SET_NAVIGATION_MENU (state, obj) {
+        state.navigationMenu = obj
       },
-      SET_CONNECT_MENU (state, menu) {
-        state.connectMenu = menu
+      SET_CONNECT_MENU (state, obj) {
+        state.connectMenu = obj
       },
-      SET_CONTACT (state, obj) {
-        state.contact = obj
+      SET_CONTACT_WIDGET (state, obj) {
+        state.contactWidget = obj
       },
-      SET_TEAM_SLUGS (state, array) {
-        state.teamSlugs = array
+      SET_ROSTER (state, obj) {
+        state.roster = obj
+      },
+      SET_WORK (state, obj) {
+        state.work = obj
       }
     },
     actions: {
+      async setCtx (context) {
+        let ctx = await this.$prismic.initApi()
+        return ctx
+      },
+      async getPage (context, page) {
+        let ctx = await context.dispatch('setCtx')
+        return ctx.api.getByUID('pages', page)
+      },
+      setPrimaryColor (context, color) {
+        context.commit('SET_PRIMARY_COLOR', color)
+      },
       setBackgroundColor (context, color) {
         context.commit('SET_BACKGROUND_COLOR', color)
         let el = document.querySelector('.bgSpan')
@@ -91,8 +122,14 @@ const createStore = () => {
         }
         window.requestAnimationFrame(updateBg)
       },
-      setPrimaryColor (context, color) {
-        context.commit('SET_PRIMARY_COLOR', color)
+      setNavColor (context, color) {
+        context.commit('SET_NAV_COLOR', color)
+        let el = document.querySelector('.navbar')
+
+        let updateBg = () => {
+          el.style.backgroundColor = color
+        }
+        window.requestAnimationFrame(updateBg)
       },
       toggleLoading (context, bool) {
         context.commit('TOGGLE_LOADING', bool)
@@ -113,21 +150,47 @@ const createStore = () => {
         context.commit('CHANGE_BREAKPOINT', bp)
       },
       async getMenus (context) {
-        this.$prismic.initApi().then((ctx) => {
-          ctx.api.getSingle('menu').then((res) => {
-            context.commit('SET_NAVIGATION_MENU', res.data.navigation_menu)
-            context.commit('SET_CONNECT_MENU', res.data.connect_menu)
+        let ctx = await context.dispatch('setCtx')
+        let menu = await ctx.api.getSingle('menu')
 
-            let contact = {
-              newBusiness: res.data.new_business,
-              general: res.data.general
-            }
-            context.commit('SET_CONTACT', contact)
-          })
-        })
+        let mainMenu = {
+          title: menu.data.main_menu_title,
+          menu: menu.data.navigation_menu
+        }
+        let connectMenu = {
+          title: menu.data.connect_menu_title,
+          menu: menu.data.connect_menu
+        }
+        let contactWidget = {
+          title: menu.data.widget_title,
+          widget: menu.data.contact_widget
+        }
+        context.commit('SET_NAVIGATION_MENU', mainMenu)
+        context.commit('SET_CONNECT_MENU', connectMenu)
+        context.commit('SET_CONTACT_WIDGET', contactWidget)
       },
-      getTeamSlugs (context, slugs) {
-        context.commit('SET_TEAM_SLUGS', slugs)
+      async getRoster (context) {
+        let ctx = await context.dispatch('setCtx')
+        let roster = await ctx.api.query(
+          this.$prismic.predicates.at('document.type', 'roster_posts'),
+          { orderings: '[my.roster_posts.post_position, my.roster_posts.member_name]' }
+        )
+
+        context.commit('SET_ROSTER', roster)
+      },
+      async getWork (context) {
+        let ctx = await context.dispatch('setCtx')
+        let work = await ctx.api.query(
+          this.$prismic.predicates.at('document.type', 'work_posts'),
+          { orderings: '[my.work_posts.post_position, my.work_posts.title]' }
+        )
+
+        context.commit('SET_WORK', work)
+      },
+      async getWorkPost (context, slug) {
+        let ctx = await context.dispatch('setCtx')
+        let entry = await ctx.api.getByUID('work_posts', slug)
+        return entry
       }
     }
   })

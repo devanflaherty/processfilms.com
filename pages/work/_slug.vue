@@ -1,40 +1,48 @@
 <template>
   <section 
-    :data-wio-id="document.id" 
     id="workPage" 
-    class="page" 
+    class="page push-top" 
     :class="contrast"
     v-show="!loading">
-    <WorkHero :class="{'add-margin': margin === 'marginHero'}" :entry="entry" />
+    <!-- <WorkHero :class="{'add-margin': margin === 'marginHero'}" :entry="entry" /> -->
 
-    <section class="section" v-if="entry.highlight_video.html || entry.approach.length > 0">
-      <div class="container">
-        <div class="work-approach rich-text"
-          v-if="entry.approach.length > 0"
-          v-html="$prismic.asHtml(entry.approach)"
-          v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom'}"></div>
-        <responsiveVideo
-          class="work-highlight-video"
-          v-if="entry.highlight_video.html"
-          :embed="entry.highlight_video" 
-          v-scroll-reveal="{duration: 1000, scale: 0.9, distance: '200px'}"/>
+    <section class="hero" v-if="entry.work_video.html">
+      <div class="hero-body">
+        <div class="hero-container container">
+          <responsiveVideo
+            v-if="entry.work_video"
+            :embed="entry.work_video" 
+            v-scroll-reveal="{duration: 1000, scale: 1, distance: '-200px'}"/>
+        </div>
       </div>
     </section>
-    
-    <section id="workContent" class="opening section">
+
+    <section class="section work-info">
       <div class="container">
-        <div class="columns opener">
-          <div class="column is-4">
-            <div class="opening-headline"
-              v-html="$prismic.asHtml(entry.opening_headline)"
-              v-scroll-reveal="{scale: 1, distance: '100px', origin: 'left'}"></div>
-          </div>
-          <div class="column">
-            <div class="opening-statement rich-text"
-              v-html="$prismic.asHtml(entry.opening_statement)"
-              v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom'}"></div>
-            <h3 class="list-headline" v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom', delay: 100}">Involvement</h3>
-            <p class="work-types column-list" v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom', delay: 200}">{{entry.involvement}}</p>
+        <div class="columns flex-center">
+          <div class="column is-10">
+            <h2 class="is-size-1">{{$prismic.asText(entry.title)}}</h2>
+
+            <div class="columns">
+              <div class="column is-6">
+                <div class="work-approach rich-text"
+                  v-if="entry.approach.length > 0"
+                  v-html="$prismic.asHtml(entry.approach)"
+                  v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom'}"></div>
+                </div>
+
+                <div class="column is-6">
+                  <div class="director roster-member" v-for="(member, index) in entry.work_roster" :key="index">
+                    <h6>{{member.member_position}}</h6>
+                      <nuxt-link :to="$prismic.asLink(member.member_link)" v-if="member.member_link.id">
+                        <span>{{member.member_name}}</span>
+                      </nuxt-link>
+                      <span v-else>{{member.member_name}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -48,6 +56,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import { beforeEnter, enter, leave } from '~/mixins/page-transitions'
 import WorkHero from '~/components/work/workHero'
 
@@ -84,17 +93,15 @@ export default {
     enter,
     leave
   },
-  asyncData ({ app, params, store }) {
-    return app.$prismic.initApi().then(ctx => {
-      return ctx.api.getByUID('work_posts', params.slug).then(res => {
-        return {
-          document: res,
-          entry: res.data
-        }
-      })
-    })
+  async asyncData ({ app, params, store }) {
+    let entry = await store.dispatch('getWorkPost', params.slug)
+    return {
+      document: entry,
+      entry: entry.data
+    }
   },
   computed: {
+    ...mapGetters(['breakpoint']),
     seoTitle () {
       if (this.entry.meta_title > 0) {
         return this.entry.meta_title
@@ -127,6 +134,7 @@ export default {
     this.$store.dispatch('toggleLoading', true)
   },
   beforeMount () {
+    this.$store.dispatch('setNavColor', this.entry.nav_color)
     this.$store.dispatch('setBackgroundColor', this.entry.background_color)
   },
   mounted () {
@@ -144,10 +152,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~assets/styles/mixins';
+
+.hero {
+  margin-bottom: 100px;
+  .hero-body {
+    padding: 0;
+  }
+  .hero-container {
+    padding: 0 3rem;
+    margin: 0 auto;
+    @include desktop-only () {
+      padding: 0;
+    }
+    @include touch () {
+      padding: 0;
+    }
+  }
+}
+
+.work-info {
+  .flex-center {
+    justify-content: center;
+  }
+  h2 {
+    line-height: 1;
+    margin-bottom: 4rem;
+  }
+  .roster-member {
+    margin-bottom: 1rem;
+  }
+}
+
 .add-margin {
   margin-bottom: 200px;
-}
-.work-highlight-video {
-  margin-top: 200px;
 }
 </style>

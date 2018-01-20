@@ -5,9 +5,9 @@
       <div class="columns is-mobile is-multiline">
         
         <div class="column is-6-touch is-2-desktop footer-column">
-          <h5><strong>Navigation</strong></h5>
+          <h5><strong>{{$prismic.asText(navigationMenu.title)}}</strong></h5>
           <ul>
-            <li v-for="(link, index) in navigationMenu" :key="index">
+            <li v-for="(link, index) in navigationMenu.menu" :key="index">
               <nuxt-link v-if="link.link_url.link_type === 'Document'" :to="$prismic.asLink(link.link_url)">{{link.link_label}}</nuxt-link>
               <a v-else :href="$prismic.asLink(link.link_url)">{{link.link_label}}</a>
             </li>
@@ -15,9 +15,9 @@
         </div>
 
         <div class="column is-6-touch is-2-desktop footer-column">
-          <h5><strong>Connect</strong></h5>
+          <h5><strong>{{$prismic.asText(connectMenu.title)}}</strong></h5>
           <ul>
-            <li v-for="(link, index) in connectMenu" :key="index">
+            <li v-for="(link, index) in connectMenu.menu" :key="index">
               <nuxt-link v-if="link.link_url.link_type === 'Document'" :to="$prismic.asLink(link.link_url)">{{link.link_label}}</nuxt-link>
               <a v-else :href="$prismic.asLink(link.link_url)">{{link.link_label}}</a>
             </li>
@@ -25,8 +25,8 @@
         </div>
 
         <div class="new-business column is-12-touch is-5-desktop is-offset-3-desktop footer-column">
-          <h5><strong>New Business</strong></h5>
-          <div v-html="$prismic.asHtml(contact.newBusiness)"></div>
+          <h5><strong>{{$prismic.asText(contactWidget.title)}}</strong></h5>
+          <div v-html="$prismic.asHtml(contactWidget.widget)"></div>
         </div>
       </div>
     </div>
@@ -47,10 +47,10 @@ export default {
     Logo
   },
   computed: {
-    ...mapGetters(['navigationMenu', 'connectMenu', 'contact'])
+    ...mapGetters(['navigationMenu', 'connectMenu', 'contactWidget'])
   },
   mounted () {
-    this.$reveal('.footer-column', {distance: '-100px', scale: 1, duration: 1000, reset: true}, 250)
+    this.$reveal('.footer-column', {distance: '100px', scale: 1, duration: 1000, reset: true}, 250)
   }
 }
 </script>

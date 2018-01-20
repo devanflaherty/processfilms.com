@@ -1,18 +1,38 @@
 <template>
   <div id="mobileNav" :class="{'is-active': mobileNav}">
     <div class="mobile-nav-wrap">
-      <nuxt-link class="navbar-item mobile-item" :to="$prismic.asLink(link.link_url)" v-for="(link, index) in menu" :key="index">
-        {{link.link_label}}
-      </nuxt-link>
+      <div class="main-nav">
+        <h6>{{$prismic.asText(navigationMenu.title)}}</h6>
+        <nuxt-link class="navbar-item mobile-item" :to="$prismic.asLink(link.link_url)" v-for="(link, index) in navigationMenu.menu" :key="index">
+          {{link.link_label}}
+        </nuxt-link>
+      </div>
+
+      <div class="contact-widget">
+        <h6>{{$prismic.asText(contactWidget.title)}}</h6>
+        <div class="rich-text" v-html="$prismic.asHtml(contactWidget.widget)"></div>
+      </div>
+
+      <div class="connect-nav">
+        <h6>{{$prismic.asText(connectMenu.title)}}</h6>
+        <div class="mobile-item navbar-item" v-for="(link, index) in connectMenu.menu" :key="index">
+          <nuxt-link v-if="link.link_url.link_type === 'Document'" :to="$prismic.asLink(link.link_url)">{{link.link_label}}</nuxt-link>
+          <a v-else :href="$prismic.asLink(link.link_url)">{{link.link_label}}</a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import {TimelineMax} from 'gsap'
 
 export default {
   props: ['menu', 'mobileNav'],
+  computed: {
+    ...mapGetters(['navigationMenu', 'connectMenu', 'contactWidget'])
+  },
   watch: {
     mobileNav (bool) {
       let tl = new TimelineMax({delay: 0.25})
@@ -44,6 +64,11 @@ export default {
   z-index: 10;
   display: none;
   visibility: hidden;
+  text-align: right;
+  h6 {
+    font-weight: 600;
+    color: darken($white, 60%);
+  }
   @include touch(){
     display: block;
     position: fixed;
@@ -54,7 +79,7 @@ export default {
     .mobile-nav-wrap {
       z-index: 10;
       position: absolute;
-      top: 200px; 
+      top: 100px; 
       left: -100%;
       margin: auto;
       width: 100%;
@@ -62,16 +87,32 @@ export default {
       padding-left: 4rem;
       padding-right: 4rem;
       @include mobile() {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: .5rem;
+        padding-right: .5rem;
+      }
+      .main-nav {
+        margin-bottom: 4rem;
+        h6 {
+          padding-right: 1rem;
+        }
+      }
+      .contact-widget {
+        margin-bottom: 4rem;
+        padding-right: 1.5rem;
+      }
+      .connect-nav {
+        h6 {
+          padding-right: 1.5rem;
+        }
       }
       .navbar-item {
         display: block;
-        font-size: 2.25rem;
-        color: $black;
+        font-size: 1.5rem;
+        color: $white;
         background: none!important;
-        text-align: right;
         transition: color 0.5s ease;
+        padding-top: 0;
+        padding-bottom: 0;
         &:after {
           font-size: 2rem;
           content: '';
@@ -89,12 +130,12 @@ export default {
         &:hover {
           &:after {
             height: 100%;
-            background: $black;
+            background: $white;
           }
         }
       }
     }
-    &::before, &::after {
+    &::before {
       content:'';
       display: block;
       position: absolute;
@@ -109,13 +150,8 @@ export default {
     }
     &::before {
       z-index: 8;
-      background: white;
+      background: $black;
       transition: all 0.5s 0.25s ease;
-    }
-    &::after {
-      z-index: 7;
-      -webkit-backdrop-filter: blur(10px);
-      transition: all 0.5s 0.66s ease;
     }
     &.is-active {
       visibility: visible;
@@ -124,9 +160,6 @@ export default {
         left: 0;
       }
       // Transitions In
-      &::after {
-        transition: all 0.33s ease;
-      }
       &::before {
         transition: all 0.33s 0.25s ease;
       }

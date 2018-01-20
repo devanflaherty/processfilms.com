@@ -10,7 +10,7 @@ import quote from '~/components/slices/quote'
 
 import workCard from '~/components/work/workCard'
 
-import teamCard from '~/components/team/teamCard'
+import rosterCard from '~/components/roster/rosterCard'
 
 // Utilities
 import responsiveVideo from '~/components/utilities/responsiveVideo'
@@ -27,7 +27,7 @@ Vue.component('richText', richText)
 Vue.component('quote', quote)
 
 Vue.component('workCard', workCard)
-Vue.component('teamCard', teamCard)
+Vue.component('rosterCard', rosterCard)
 
 Vue.component('responsiveVideo', responsiveVideo)
 Vue.component('captionedImage', captionedImage)

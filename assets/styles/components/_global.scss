@@ -10,7 +10,7 @@ main {
   transition: background-color .5s ease-out;
 }
 .push-top {
-  padding-top: 11rem;
+  padding-top: 148px;
 }
 .page-welcome {
   padding-top: 6rem;
@@ -18,7 +18,7 @@ main {
 }
 @include mobile() {
   .push-top {
-    padding-top: 8rem;
+    padding-top: 80px;
   }
   .page-welcome {
     padding-top: 4rem;

@@ -1,69 +1,4 @@
 {
-  "Slider" : {
-    "hero_slider" : {
-      "type" : "Group",
-      "config" : {
-        "fields" : {
-          "slide_link" : {
-            "type" : "Link",
-            "config" : {
-              "label" : "Slide Link"
-            }
-          },
-          "link_label" : {
-            "type" : "Text",
-            "config" : {
-              "label" : "Link Label"
-            }
-          },
-          "slide_description" : {
-            "type" : "StructuredText",
-            "config" : {
-              "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
-              "label" : "Slide Description"
-            }
-          },
-          "slide_title" : {
-            "type" : "Text",
-            "config" : {
-              "label" : "Slide Title"
-            }
-          },
-          "slide_image" : {
-            "type" : "Image",
-            "config" : {
-              "constraint" : { },
-              "thumbnails" : [ {
-                "name" : "large",
-                "width" : 1600,
-                "height" : null
-              }, {
-                "name" : "placeholder",
-                "width" : 100,
-                "height" : null
-              } ],
-              "label" : "Slide Image"
-            }
-          },
-          "slide_caption" : {
-            "type" : "Text",
-            "config" : {
-              "label" : "Slide Caption"
-            }
-          },
-          "contrast" : {
-            "type" : "Select",
-            "config" : {
-              "options" : [ "Light", "Dark" ],
-              "default_value" : "Light",
-              "label" : "Contrast"
-            }
-          }
-        },
-        "label" : "Hero Slider"
-      }
-    }
-  },
   "Body" : {
     "title" : {
       "type" : "StructuredText",
@@ -89,34 +24,6 @@
       "type" : "Embed",
       "config" : {
         "label" : "Work Reel"
-      }
-    },
-    "opening_headline" : {
-      "type" : "StructuredText",
-      "config" : {
-        "single" : "heading1, heading2, heading3, heading4, heading5, heading6",
-        "label" : "Opening Headline"
-      }
-    },
-    "opening_statement" : {
-      "type" : "StructuredText",
-      "config" : {
-        "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
-        "label" : "Opening Statement"
-      }
-    },
-    "capabilities" : {
-      "type" : "StructuredText",
-      "config" : {
-        "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
-        "label" : "Capabilities"
-      }
-    },
-    "closing_statement" : {
-      "type" : "StructuredText",
-      "config" : {
-        "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
-        "label" : "Closing Statement"
       }
     }
   },

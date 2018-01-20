@@ -1,19 +1,18 @@
 <template>
   <div 
+    :data-wio-id="document.id" 
     id="page" 
     :class="contrast"
     v-show="!loading">
 
-    <component :is="template + 'Page'" :page="page"/>
+    <component is="rosterPage" :page="page"/>
     
   </div>
 </template>
 
 <script>
 import {beforeEnter, enter, leave} from '~/mixins/page-transitions'
-import defaultPage from '~/components/pageTemplates/default'
 import rosterPage from '~/components/pageTemplates/roster'
-import workPage from '~/components/pageTemplates/work'
 
 export default {
   name: 'page',
@@ -47,17 +46,13 @@ export default {
     }
   },
   components: {
-    defaultPage,
-    rosterPage,
-    workPage
+    rosterPage
   },
   async asyncData ({ app, params, error, store }) {
-    let page = await store.dispatch('getPage', params.page)
-    if (page.data.page_template === 'roster') {
-      await store.dispatch('getRoster')
-    } else if (page.data.page_template === 'work') {
-      await store.dispatch('getWork')
-    }
+    let page = await store.dispatch('getPage', 'roster')
+    // if (page.data.page_template === 'work') {
+    await store.dispatch('getRoster')
+    // }
     return {
       document: page,
       page: page.data,

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-transparent">
+  <nav class="navbar is-transparent" :style="`background-color: ${navColor}`">
     <style>
       .navbar-item:after {
         background: {{primaryColor}}!important;
@@ -23,7 +23,7 @@
       <div id="navMenu" class="navbar-menu" v-if="breakpoint >= 3 && navVis">
         <transition name="fade-in" appear>
           <div class="navbar-end" v-if="mobileNav || breakpoint > 2">
-            <nuxt-link class="navbar-item" :to="$prismic.asLink(link.link_url)" v-for="(link, index) in navigationMenu" :key="index"
+            <nuxt-link class="navbar-item" :to="$prismic.asLink(link.link_url)" v-for="(link, index) in navigationMenu.menu" :key="index"
               :style="`color: ${primaryColor}!important`">
               {{link.link_label}}
             </nuxt-link>
@@ -32,7 +32,7 @@
       </div>
     </transition>
 
-    <MobileNav :menu="navigationMenu" :mobileNav="mobileNav"/>
+    <MobileNav :mobileNav="mobileNav"/>
   </nav>
 </transition>
 </template>
@@ -55,7 +55,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['mobileNav', 'navigationMenu', 'breakpoint'])
+    ...mapGetters(['navColor', 'mobileNav', 'navigationMenu', 'breakpoint'])
   },
   watch: {
     mobileNav (bool) {
@@ -120,10 +120,13 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  background: transparent;
-  padding: 3rem 2rem;
+  height: 148px;
+  background: $black;
+  padding: 0 2rem;
+  transition: background-color 0.5s ease-in-out;
   @include mobile() {
-    padding: 1rem;
+    height: 80px;
+    padding: .8rem 1rem;
   }
   .navbar-brand {
     position: relative;
@@ -208,7 +211,7 @@ export default {
     border-radius: 6px;
     height: 2px;
     width: 1.5rem;
-    background: $black;
+    background: $white;
   }
   span:nth-child(1) {
     top: 0;
@@ -219,7 +222,7 @@ export default {
   &.is-active span {
     top: 50%;
     transform-origin: center center;
-    background: $black!important;
+    background: $white!important;
     transition: background-color .5s ease, top .5s cubic-bezier(.75,0,.50, 1.5), transform .5s .5s cubic-bezier(.75,0,.50, 1.5);
   }
   &.is-active span:nth-child(1) {

@@ -34,6 +34,26 @@
         "label" : "Description"
       }
     },
+    "social_links" : {
+      "type" : "Group",
+      "config" : {
+        "fields" : {
+          "link_label" : {
+            "type" : "Text",
+            "config" : {
+              "label" : "Link Label"
+            }
+          },
+          "link_url" : {
+            "type" : "Link",
+            "config" : {
+              "label" : "Link URL"
+            }
+          }
+        },
+        "label" : "Social Links"
+      }
+    },
     "primary_color" : {
       "type" : "Color",
       "config" : {
@@ -45,7 +65,9 @@
       "config" : {
         "label" : "Background Color"
       }
-    },
+    }
+  },
+  "Images" : {
     "member_avatar" : {
       "type" : "Image",
       "config" : {
@@ -76,26 +98,6 @@
           "height" : null
         } ],
         "label" : "Member Hero"
-      }
-    },
-    "social_links" : {
-      "type" : "Group",
-      "config" : {
-        "fields" : {
-          "link_label" : {
-            "type" : "Text",
-            "config" : {
-              "label" : "Link Label"
-            }
-          },
-          "link_url" : {
-            "type" : "Link",
-            "config" : {
-              "label" : "Link URL"
-            }
-          }
-        },
-        "label" : "Social Links"
       }
     }
   },
@@ -205,6 +207,21 @@
                 }
               }
             }
+          },
+          "video_embed" : {
+            "type" : "Slice",
+            "fieldset" : "Video Embed",
+            "description" : "Full-Span Responsive Embed",
+            "icon" : "play_circle_outline",
+            "non-repeat" : {
+              "embed_link" : {
+                "config" : {
+                  "label" : "Embed Link"
+                },
+                "type" : "Embed"
+              }
+            },
+            "repeat" : { }
           }
         }
       }

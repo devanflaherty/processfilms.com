@@ -1,69 +1,77 @@
 {
-  "Navigation" : {
-    "title" : {
-      "type" : "StructuredText",
-      "config" : {
-        "single" : "heading1, heading2, heading3, heading4, heading5, heading6",
-        "label" : "Title"
+  "Navigation": {
+    "main_menu_title": {
+      "type": "StructuredText",
+      "config": {
+        "single": "heading3",
+        "label": "Main Menu Title"
       }
     },
-    "navigation_menu" : {
-      "config" : {
-        "fields" : {
-          "link_label" : {
-            "config" : {
-              "label" : "Link Label"
+    "navigation_menu": {
+      "config": {
+        "fields": {
+          "link_label": {
+            "config": {
+              "label": "Link Label"
             },
-            "type" : "Text"
+            "type": "Text"
           },
-          "link_url" : {
-            "type" : "Link",
-            "config" : {
-              "label" : "Link URL"
+          "link_url": {
+            "type": "Link",
+            "config": {
+              "label": "Link URL"
             }
           }
         },
-        "label" : "Navigation Menu"
+        "label": "Navigation Menu"
       },
-      "type" : "Group"
+      "type": "Group"
     }
   },
-  "Contact" : {
-    "general" : {
-      "type" : "StructuredText",
-      "config" : {
-        "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
-        "label" : "General"
+  "Connect": {
+    "connect_menu_title": {
+      "type": "StructuredText",
+      "config": {
+        "single": "heading3",
+        "label": "Connect Menu Title"
       }
     },
-    "new_business" : {
-      "type" : "StructuredText",
-      "config" : {
-        "multi" : "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, o-list-item",
-        "label" : "New Business"
-      }
-    }
-  },
-  "Connect" : {
-    "connect_menu" : {
-      "config" : {
-        "fields" : {
-          "link_label" : {
-            "config" : {
-              "label" : "Link Label"
+    "connect_menu": {
+      "config": {
+        "fields": {
+          "link_label": {
+            "config": {
+              "label": "Link Label"
             },
-            "type" : "Text"
+            "type": "Text"
           },
-          "link_url" : {
-            "type" : "Link",
-            "config" : {
-              "label" : "Link URL"
+          "link_url": {
+            "type": "Link",
+            "config": {
+              "label": "Link URL"
             }
           }
         },
-        "label" : "Connect Menu"
+        "label": "Connect Menu"
       },
-      "type" : "Group"
+      "type": "Group"
+    }
+  },
+  "Footer Widget": {
+    "widget_title": {
+      "type": "StructuredText",
+      "config": {
+        "single": "heading2, heading3",
+        "label": "Widget Title"
+      }
+    },
+    "footer_widget": {
+      "type": "StructuredText",
+      "config": {
+        "multi": "paragraph, heading4, heading5, strong, em, hyperlink, image",
+        "allowTargetBlank": true,
+        "label": "Footer Widget"
+      }
     }
   }
 }

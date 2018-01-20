@@ -7,28 +7,8 @@ Vue.mixin({
     ...mapGetters(['primaryColor', 'backgroundColor', 'loading', 'navVis'])
   },
   methods: {
-    imageLoader (imgSrc, el) {
-      var img = new Image()
-      img.src = imgSrc
-
-      img.onload = function () {
-        el.appendChild(img)
-      }
-    },
     setPageStyle (primary, contrast) {
       this.setPageContrast(contrast)
-      this.setPrimaryColor(primary)
-    },
-    setBg (color, primary) {
-      let bg = document.querySelector('.bgSpan')
-
-      let updateBg = () => {
-        bg.style.backgroundColor = color
-        this.$store.dispatch('setPrimaryColor', primary)
-      }
-      window.requestAnimationFrame(updateBg)
-    },
-    setPrimaryColor (primary) {
       this.$store.dispatch('setPrimaryColor', primary)
     },
     setPageContrast (style, el) {

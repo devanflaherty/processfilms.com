@@ -1,14 +1,11 @@
 <template>
-  <article class="column is-6 team-card" :class="{'reveal' : reveal}" 
+  <article class="column is-6 roster-card is-paddingless" 
     @click="clicked"
     v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom'}"
-    @beforeReveal="wipe"
+    @beforeReveal="animateSlices"
     :data-wio-id="post.id">
     <div class="card-square" :class="{'active' : active}">
-      <!-- Wipe transition -->
-      <div class="wipe" :style="`background-color: ${entry.primary_color}`"></div>
-      
-      <nuxt-link :to="`/team/${post.uid}`">
+      <nuxt-link :to="`/roster/${post.uid}`">
         <!-- quick info overlay : reveal on hover -->
         <div class="is-overlay">
           <div class="member-info">
@@ -20,33 +17,26 @@
         </div>
 
         <div class="image-loader" ref="imageLoader">
-          <div class="slice-wrap">
+          <!-- <div class="slice-wrap">
             <div class="image-slice" :style="`background-image: url(${entry.member_avatar.large.url})`"></div>
-          </div>
-          <!-- <div class="slice-wrap" v-for="(slice, i) in 3" :key="i">
-            <div class="image-slice" :style="`background-image: url(${entry.member_avatar.url})`"></div>
           </div> -->
+          <div class="slice-wrap" v-for="(slice, i) in 3" :key="i">
+            <div class="image-slice" v-lazy:background-image="entry.member_avatar.url"></div>
+          </div>
         </div>
-        <img v-lazy="entry.member_avatar.large.url" style="visibility: hidden; opacity: 0;">
       </nuxt-link>
     </div>
   </article>
 </template>
 
 <script>
-// import {TimelineMax} from 'gsap'
+import {TimelineMax} from 'gsap'
 export default {
   props: ['post'],
   data () {
     return {
       active: false,
-      reveal: false,
       entry: this.post.data
-    }
-  },
-  watch: {
-    reveal () {
-      // this.animateSlices()
     }
   },
   methods: {
@@ -56,29 +46,26 @@ export default {
     toNewLines (str) {
       return str.split('\n').join('<br>')
     },
-    wipe () {
-      this.reveal = true
+    animateSlices () {
+      let loader = this.$refs.imageLoader
+      let slices = [...loader.childNodes]
+      let imgs = slices.map((slice, i) => {
+        return slice.querySelector('.image-slice')
+      })
+      let tl = new TimelineMax({delay: 0.125})
+      tl.staggerFromTo(imgs, 0.5, {
+        x: -200
+      }, {
+        x: 0
+      }, 0.125)
     }
-    // animateSlices () {
-    //   let loader = this.$refs.imageLoader
-    //   let slices = [...loader.childNodes]
-    //   let imgs = slices.map((slice, i) => {
-    //     return slice.querySelector('.image-slice')
-    //   })
-    //   let tl = new TimelineMax()
-    //   tl.staggerFromTo(imgs, 0.5, {
-    //     x: -200
-    //   }, {
-    //     x: 0
-    //   }, 0.25)
-    // }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '~assets/styles/mixins';
-.team-card {
+.roster-card {
   position: relative;
   overflow: hidden;
   .card-square {
@@ -88,15 +75,6 @@ export default {
     padding-bottom: 100%;
     overflow: hidden;
     transition: filter 0.5s ease;
-  }
-  .wipe {
-    z-index: 20;
-    height: 100%;
-    top: 0;
-    left: 0;
-    @include overlay();
-    background: gray;
-    transition: all .66s cubic-bezier(.97,0,.51,1);
   }
   a {
     position: absolute;
@@ -159,20 +137,20 @@ export default {
         position: absolute;
         top: 0;
         height: 100%;
-        width: 100%;
+        width: 300%;
         background-size: cover;
         background-position: center;
         left: 0;
       }
-      // &:nth-child(1) .image-slice {
-      //   left: 0;
-      // }
-      // &:nth-child(2) .image-slice {
-      //   left: -100%;
-      // }
-      // &:nth-child(3) .image-slice {
-      //   left: -200%;
-      // }
+      &:nth-child(1) .image-slice {
+        left: 0;
+      }
+      &:nth-child(2) .image-slice {
+        left: -100%;
+      }
+      &:nth-child(3) .image-slice {
+        left: -200%;
+      }
     }
   }
 }

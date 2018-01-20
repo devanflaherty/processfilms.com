@@ -2,8 +2,8 @@ import PrismicDOM from 'prismic-dom'
 let Elements = PrismicDOM.RichText.Elements
 
 export default {
-  apiEndpoint: 'https://processcreative.prismic.io/api/v2',
-  accessToken: 'MC5XZk9tcGlvQUFKMVlJTXlo.JBfvv73vv73vv73vv70r77-977-977-9X--_vWvvv70uIzFp77-977-977-9VO-_vXpFOu-_vTVJQgRe',
+  apiEndpoint: 'https://processfilms.prismic.io/api/v2',
+  accessToken: 'MC5XbC03MHljQUFJQk03TG4t.UwNxCjnvv70r77-977-977-9Ru-_ve-_vQ7vv73vv73vv73vv70af--_ve-_ve-_vVph77-9JmAnNO-_vRE',
 
   linkResolver (doc) {
     // Define the url depending on the document type

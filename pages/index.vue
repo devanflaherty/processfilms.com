@@ -3,7 +3,7 @@
 
     <section id="vision" class="padding-large section">
       <div class="container">
-        <div class="columns is-multiline">
+        <div class="columns">
           <div class="column is-12">
             <transition name="fade-in">
               <div class="vision-title" appear>
@@ -11,80 +11,29 @@
               </div>
             </transition>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="column is-12">
-            <div class="reel">
-              <responsiveVideo 
-                :embed="home.work_reel" 
-                v-scroll-reveal="{duration: 1000, scale: 1, distance: '200px', delay: 200, viewFactor: 0.1}"/>
-            </div>
-          </div>
+    <section id="reel" class="is-marginless is-paddingless">
+      <div class="container">
+        <div class="reel">
+          <responsiveVideo 
+            :embed="home.work_reel" 
+            v-scroll-reveal="{duration: 1000, scale: 1, distance: '200px', delay: 200, viewFactor: 0.1}"/>
         </div>
       </div>
     </section>
         
-    <section id="welcome" class="padding-large opening section">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-4">
-
-            <a name="toBlack" id="waypoint" v-waypoint.down="{offset: 'bottom-in-view'}" @collision="changeBgColor('#000', '#fff', 'Light')"></a>
-
-            <h3 class="opening-headline has-text-white"
-              v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'left'}">
-              {{$prismic.asText(home.opening_headline)}}
-            </h3>
-          </div>
-          <div class="column">
-            <div class="opening-statement has-text-white" 
-              v-html="$prismic.asHtml(home.opening_statement)"
-              v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom', delay: 100}"></div>
-
-            <h3 class="list-headline"
-              v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom', delay: 200}">
-              Capabilities
-            </h3>
-            <div class="column-list" v-html="$prismic.asHtml(home.capabilities)"
-              v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom', delay: 300}"></div>
-            <div class="statement" v-html="$prismic.asHtml(home.closing_statement)"
-              v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom', delay: 400}"></div>
-          </div>
+    <section id="showcase" class="section is-marginless is-paddingless" v-if="home.featured_work.length > 0">    
+      <div class="work-cards container">
+        <div class="columns is-multiline is-marginless">
+          <workCard v-for="(post, index) in home.featured_work" :key="index" :post="post.work_post" :index="index"/>
         </div>
       </div>
     </section>
-
-    <section id="featuredWork" v-waypoint.down="{offset: '0'}" @collision="changeBgColor('#fff', '#000', 'Dark')">
-      <div class="section" v-if="home.work_headline && home.work_statement">
-        <div class="container">
-          <div class="work-welcome columns">
-            <div class="column">
-              <h3 class="opening-headline has-text-black" 
-                v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'left'}">
-                {{$prismic.asText(home.work_headline)}}
-              </h3>
-            </div>
-            <div class="column">
-              <div class="work-statement has-text-black rich-text" 
-                v-html="$prismic.asHtml(home.work_statement)"
-                v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom', delay: 200}"></div>
-            </div>
-          </div>
-          <a name="toWhite" id="waypoint" v-waypoint.down="{offset: 'bottom-in-view'}" @collision="changeBgColor('#fff', '#000', 'Dark')"></a>
-          <a name="toBlack" id="waypoint" v-waypoint.inview.up="{offset: '0'}" @exited="changeBgColor('#000', '#fff', 'Light')"></a>
-        </div>
-      </div>
-
-      <div class="section work-cards" v-if="home.work_headline && home.work_statement">
-        <div class="container">
-          <workCard v-for="(post, index) in home.featured_work" :key="index" :post="post.work_post"/>
-        </div>
-      </div>
-    </section>
-
-    <!-- <a name="toBlack" id="waypoint" v-waypoint.down="{offset: '90%'}" @collision="setBg('#000', '#fff')"></a>
-    <a name="toWhite" id="waypoint" v-waypoint.up="{offset: '90%'}" @collision="setBg('#fff', '#000')"></a> -->
     
-    <clientLogos :logos="home.clients" :clientsInfo="clientsInfo"/>
+    <clientLogos :logos="home.clients" :clientsInfo="clientsInfo" v-if="home.clients.length > 1"/>
   </section>
 </template>
 
@@ -149,16 +98,12 @@ export default {
       }
     }
   },
-  methods: {
-    changeBgColor (bg, primary, contrast) {
-      this.setBg(bg, primary)
-      this.setPageContrast(contrast)
-    }
-  },
   created () {
     this.$store.dispatch('toggleLoading', true)
   },
   beforeMount () {
+    this.$store.dispatch('setNavColor', '#000')
+    this.$store.dispatch('setBackgroundColor', '#000')
     this.setPageStyle('#fff')
   },
   mounted () {
@@ -166,18 +111,11 @@ export default {
       this.$waypoint.enableWaypoints()
       this.$store.dispatch('toggleLoading', false)
       this.$store.dispatch('toggleNavVis', true)
-      this.$store.dispatch('setBackgroundColor', '#000')
 
       this.$prismic.initApi().then((ctx) => {
         ctx.toolbar()
       })
     }
-  },
-  beforeDestroy () {
-    // window.removeEventListener('scroll', this.raf)
-    this.$waypoint.disableAllWaypoints()
-    this.$waypoint.destroyWaypoints()
-    // this.setBg(null)
   }
 }
 </script>

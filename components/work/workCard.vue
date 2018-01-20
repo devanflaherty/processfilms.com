@@ -1,36 +1,29 @@
 <template>
-  <article 
-    class="work-card" :class="{'reveal' : reveal}"
-    :style="`background-color:`"
-    v-scroll-reveal="{duration: 1000, scale: 1, distance: 0, opacity: 1, viewOffset: { bottom: 50 }}"
-    @beforeReveal="wipe"
-    :data-wio-id="post.id">
-    <!-- Wipe transition -->
-    <div class="wipe" :style="`background-color: ${entry.primary_color}`"></div>
-    
-    <nuxt-link :to="`/work/${post.uid}`">
-      <!-- quick info overlay : reveal on hover -->
-      <div class="work-quick-info is-overlay columns">
-        <div class="work-quick-title column">
-          <h2 class="quick-title">
-            {{entry.title[0].text}}
-            <span>{{entry.description[0].text}}</span>
-          </h2>
+  <article class="column is-marginless is-paddingless" :class="{'is-6': $route.name === 'index'}">
+    <div 
+      class="work-card" 
+      :class="{'hover' : hover, 'is-full': $route.name !== 'index'}"
+      :style="`background-color:`"
+      v-scroll-reveal="{duration: 1000, scale: 1, distance: 0, opacity: 1, viewOffset: { bottom: 50 }}"
+      :data-wio-id="post.id">
+      
+      <nuxt-link :to="`/work/${post.uid}`">
+        <div class="work-quick-info is-overlay columns" :class="alignment">
+          <div class="work-quick-title column">
+            <h2 class="quick-title">
+              {{$prismic.asText(entry.title)}}
+              <!-- <span>{{entry.description[0].text}}</span> -->
+            </h2>
+          </div>
         </div>
 
-        <div class="work-quick-involvement column">
-          <h4><strong class="has-text-white">Involvement</strong></h4>
-          <div class="quick-involvement rich-text" v-html="toNewLines(entry.involvement)"></div>
+        <div class="image-loader" ref="imageLoader">
+          <div class="slice-wrap" v-for="(slice, i) in 1" :key="i">
+            <div class="image-slice" v-lazy:background-image="entry.feature_image.url"></div>
+          </div>
         </div>
-      </div>
-
-      <div class="image-loader" ref="imageLoader">
-        <div class="slice-wrap" v-for="(slice, i) in 1" :key="i">
-          <div class="image-slice" v-lazy:background-image="entry.feature_image.url"></div>
-        </div>
-      </div>
-      <img v-lazy="entry.feature_image.url" style="visibility: hidden; opacity: 0;">
-    </nuxt-link>
+      </nuxt-link>
+    </div>
   </article>
 </template>
 
@@ -38,29 +31,25 @@
 import {mapGetters} from 'vuex'
 // import {TimelineMax} from 'gsap' // Need for slice stagger
 export default {
-  props: ['post'],
+  props: ['post', 'index'],
   data () {
     return {
-      reveal: false,
+      hover: false,
       entry: this.post.data
     }
   },
-  // watch: {
-  //   reveal () {
-  //     this.animateSlices()
-  //   }
-  // },
   computed: {
-    ...mapGetters(['breakpoint'])
+    ...mapGetters(['breakpoint']),
+    alignment () {
+      return {
+        'has-text-right': this.isOdd(this.index) === 0,
+        'has-text-left': this.isOdd(this.index) === 1
+      }
+    }
   },
   methods: {
-    toNewLines (str) {
-      if (str) {
-        return str.split('\n').join('<br>')
-      }
-    },
-    wipe () {
-      this.reveal = true
+    isOdd (num) {
+      return num % 2
     }
     // animateSlices () {
     //   let loader = this.$refs.imageLoader
@@ -77,7 +66,7 @@ export default {
     //     }, 0.25)
     //   }
 
-    // window.requestAnimationFrame(staggerSlices)
+    //   window.requestAnimationFrame(staggerSlices)
     // }
   }
 }
@@ -94,14 +83,13 @@ export default {
   @include mobile() {
     padding-top: 56.25%;
   }
-  .wipe {
-    top: 0;
-    left: 0;
-    height: 100%;
-    z-index: 20;
-    @include overlay();
-    background: gray;
-    transition: all 1s cubic-bezier(.97,0,.51,1);
+  &:hover:not(.hover) {
+    opacity: 0.5;
+  }
+  &.is-full {
+    .work-quick-info {
+      padding: 3rem;
+    }
   }
   a {
     position: absolute;
@@ -115,10 +103,9 @@ export default {
       z-index: 10;
       height: 100%;
       margin: 0;
-      padding: 6rem;
+      padding: 2rem;
       align-items: center;
       justify-content: center;
-
       transition: all 0.5s ease;
       @include mobile() {
         display: flex;
@@ -129,24 +116,16 @@ export default {
           flex: 0 1 auto;
         }
       }
-      @include touch() {
-        padding: 3rem;
-      }
       h2.quick-title {
         font-size: 1.5rem;
         color: white;
         transition: all 0.5s ease;
-        @include tablet() {
-          transform: translate(50px, 0);
-        }
         span {
           font-size: 1.5rem;
           display: inline-block;
-          // margin-left: .5rem;
           font-weight: $lightW;
           color: rgba(white, 0.8);
           @include autoAlpha(0);
-          transform: translate(-100px, 0);
           transition: all 0.5s 0.125s ease;
           @include mobile() {
             display: block;
@@ -154,60 +133,26 @@ export default {
           } 
         }
       }
-      .work-quick-involvement {
-        @include mobile() {
-          display: none
-        }
-        h4 {
-          @include autoAlpha(0);
-          transition: all 0.5s ease;
-          transform: translate(300px, 0);
-        }
-        .quick-involvement {
-          color: $grey-light!important;
-          white-space: pre-wrap; 
-          column-count: 2;
-          @include autoAlpha(0);
-          transform: translate(300px, 0);
-          transition: all 0.5s 0.125s ease;
-        }
-      }
-    }
-    img {
-      display: block;
-      transition: all 15s ease;
-      @include mobile() {
-        object-fit: cover;
-        height: 100%;
-        width: auto;
-        position: absolute;
-      }
     }
   }
   &:hover {
     .work-quick-info {
-      background: rgba(black, 0.7);
-      .quick-title {
-        transform: translate(0,0);
+      // background: rgba(black, 0.7);
+      h2.quick-title {
+        transform: translate(50px, 0);
         span {
           @include autoAlpha(1);
-          transform: translate(0, 0)
+          transform: translate(-100px, 0);
         }
       }
-      .work-quick-involvement {
-        h4, .quick-involvement {
-          @include autoAlpha(1);
-          transform: translate(0,0);
+      &.has-text-right {
+        h2.quick-title {
+          transform: translate(-50px, 0);
+        }
+        span {
+          transform: translate(100px, 0);
         }
       }
-    }
-    img {
-      transform: scale(1.3);
-    }
-  }
-  &.reveal {
-    .wipe {
-      top: -101%;
     }
   }
 
