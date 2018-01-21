@@ -1,76 +1,76 @@
 {
-  "Navigation": {
-    "main_menu_title": {
-      "type": "StructuredText",
-      "config": {
-        "single": "heading3",
-        "label": "Main Menu Title"
+  "Navigation" : {
+    "main_menu_title" : {
+      "type" : "StructuredText",
+      "config" : {
+        "single" : "heading3",
+        "label" : "Main Menu Title"
       }
     },
-    "navigation_menu": {
-      "config": {
-        "fields": {
-          "link_label": {
-            "config": {
-              "label": "Link Label"
+    "navigation_menu" : {
+      "config" : {
+        "fields" : {
+          "link_label" : {
+            "config" : {
+              "label" : "Link Label"
             },
-            "type": "Text"
+            "type" : "Text"
           },
-          "link_url": {
-            "type": "Link",
-            "config": {
-              "label": "Link URL"
+          "link_url" : {
+            "type" : "Link",
+            "config" : {
+              "label" : "Link URL"
             }
           }
         },
-        "label": "Navigation Menu"
+        "label" : "Navigation Menu"
       },
-      "type": "Group"
+      "type" : "Group"
     }
   },
-  "Connect": {
-    "connect_menu_title": {
-      "type": "StructuredText",
-      "config": {
-        "single": "heading3",
-        "label": "Connect Menu Title"
+  "Connect" : {
+    "connect_menu_title" : {
+      "type" : "StructuredText",
+      "config" : {
+        "single" : "heading3",
+        "label" : "Connect Menu Title"
       }
     },
-    "connect_menu": {
-      "config": {
-        "fields": {
-          "link_label": {
-            "config": {
-              "label": "Link Label"
+    "connect_menu" : {
+      "config" : {
+        "fields" : {
+          "link_label" : {
+            "config" : {
+              "label" : "Link Label"
             },
-            "type": "Text"
+            "type" : "Text"
           },
-          "link_url": {
-            "type": "Link",
-            "config": {
-              "label": "Link URL"
+          "link_url" : {
+            "type" : "Link",
+            "config" : {
+              "label" : "Link URL"
             }
           }
         },
-        "label": "Connect Menu"
+        "label" : "Connect Menu"
       },
-      "type": "Group"
+      "type" : "Group"
     }
   },
-  "Footer Widget": {
-    "widget_title": {
-      "type": "StructuredText",
-      "config": {
-        "single": "heading2, heading3",
-        "label": "Widget Title"
+  "Contact Widget" : {
+    "widget_title" : {
+      "type" : "StructuredText",
+      "config" : {
+        "single" : "heading2, heading3",
+        "label" : "Widget Title"
       }
     },
-    "footer_widget": {
-      "type": "StructuredText",
-      "config": {
-        "multi": "paragraph, heading4, heading5, strong, em, hyperlink, image",
-        "allowTargetBlank": true,
-        "label": "Footer Widget"
+    "contact_widget" : {
+      "type" : "StructuredText",
+      "config" : {
+        "multi" : "paragraph, heading4, heading5, strong, em, hyperlink",
+        "allowTargetBlank" : true,
+        "label" : "Contact Widget"
       }
     }
   }

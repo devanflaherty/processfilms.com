@@ -65,6 +65,12 @@
       "config" : {
         "label" : "Background Color"
       }
+    },
+    "nav_color" : {
+      "type" : "Color",
+      "config" : {
+        "label" : "Nav Color"
+      }
     }
   },
   "Images" : {
@@ -226,5 +232,6 @@
         }
       }
     }
-  }
+  },
+  "Related Work" : { }
 }
