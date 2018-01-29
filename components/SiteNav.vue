@@ -19,7 +19,7 @@
         </div>
       </div>
     </transition>
-    <transition name="nav-in" appear>
+    <!-- <transition name="nav-in" appear>
       <div id="navMenu" class="navbar-menu" v-if="breakpoint >= 3 && navVis">
         <transition name="fade-in" appear>
           <div class="navbar-end" v-if="mobileNav || breakpoint > 2">
@@ -30,7 +30,7 @@
           </div>
         </transition>
       </div>
-    </transition>
+    </transition> -->
 
     <MobileNav :mobileNav="mobileNav"/>
   </nav>
@@ -133,6 +133,7 @@ export default {
     z-index: 100;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     .navbar-item {
       padding: 0;
     }
@@ -147,41 +148,41 @@ export default {
       }
     }
   }
-  .navbar-menu {
-    z-index: 90;
-    padding-left: 0;
-    padding-right: 0;
-    .navbar-end {
-      align-items: center;
-    }
-    .navbar-item {
-      color: $black;
-      font-size: 1rem;
-      position: relative;
-      padding-left: 0;
-      padding-right: 0;
-      margin: 0 2rem; 
-      &:after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        display: block;
-        height: 2px;
-        background: transparent;
-        width: 0;
-        transition: all 0.5s ease;
-      }
-      &:hover {
-        &:after {
-          background: $grey-light;
-          width: 100%;
-        }
-      }
-    }
-  }
+  // .navbar-menu {
+  //   z-index: 90;
+  //   padding-left: 0;
+  //   padding-right: 0;
+  //   .navbar-end {
+  //     align-items: center;
+  //   }
+  //   .navbar-item {
+  //     color: $black;
+  //     font-size: 1rem;
+  //     position: relative;
+  //     padding-left: 0;
+  //     padding-right: 0;
+  //     margin: 0 2rem; 
+  //     &:after {
+  //       content: '';
+  //       position: absolute;
+  //       bottom: 0;
+  //       left: 0;
+  //       right: 0;
+  //       margin: 0 auto;
+  //       display: block;
+  //       height: 2px;
+  //       background: transparent;
+  //       width: 0;
+  //       transition: all 0.5s ease;
+  //     }
+  //     &:hover {
+  //       &:after {
+  //         background: $grey-light;
+  //         width: 100%;
+  //       }
+  //     }
+  //   }
+  // }
 }
 
 .nav-burg {
@@ -195,9 +196,6 @@ export default {
   flex: 0 1 auto;
   cursor: pointer;
   transition: all 0.5s ease;
-  @include desktop() {
-    display: none;
-  }
   &:hover {
     background: none;
   }

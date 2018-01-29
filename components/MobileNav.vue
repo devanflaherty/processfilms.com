@@ -26,7 +26,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import {TimelineMax} from 'gsap'
+// import {TimelineMax} from 'gsap'
 
 export default {
   props: ['menu', 'mobileNav'],
@@ -34,26 +34,23 @@ export default {
     ...mapGetters(['navigationMenu', 'connectMenu', 'contactWidget'])
   },
   watch: {
-    mobileNav (bool) {
-      let tl = new TimelineMax({delay: 0.25})
-      if (bool) {
-        tl.staggerFromTo('.mobile-item', 1, {
-          x: -100,
-          autoAlpha: 0,
-          rotationY: -90,
-          transformStyle: 'preserve-3d',
-          perspective: 100
-        }, {
-          x: 0,
-          autoAlpha: 1,
-          rotationY: 0
-        }, 0.25)
-      } else {
-        tl.staggerTo('.mobile-item', 0.5, {
-          autoAlpha: 0
-        }, 0.25)
-      }
-    }
+    // mobileNav (bool) {
+    //   let tl = new TimelineMax({delay: 0.25})
+    //   if (bool) {
+    //     tl.staggerFromTo('.mobile-item', 0.5, {
+    //       y: -100,
+    //       autoAlpha: 0,
+    //       transformStyle: 'preserve-3d'
+    //     }, {
+    //       y: 0,
+    //       autoAlpha: 1
+    //     }, 0.25)
+    //   } else {
+    //     tl.staggerTo('.mobile-item', 0.5, {
+    //       autoAlpha: 0
+    //     }, 0.25)
+    //   }
+    // }
   }
 }
 </script>
@@ -65,107 +62,104 @@ export default {
   display: none;
   visibility: hidden;
   text-align: right;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   h6 {
     font-weight: 600;
     color: darken($white, 60%);
   }
-  @include touch(){
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
+  .mobile-nav-wrap {
+    z-index: 10;
+    position: absolute;
+    right: -100%;
+    margin: auto;
     width: 100%;
     height: 100%;
-    .mobile-nav-wrap {
-      z-index: 10;
-      position: absolute;
-      top: 100px; 
-      left: -100%;
-      margin: auto;
-      width: 100%;
-      height: 100%;
-      padding-left: 4rem;
-      padding-right: 4rem;
-      @include mobile() {
-        padding-left: .5rem;
-        padding-right: .5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    top: 140px;
+    @include mobile () {
+      top: 80px;
+      padding-left: .5rem;
+      padding-right: .5rem;
+    }
+    .main-nav {
+      margin-bottom: 4rem;
+      h6 {
+        padding-right: 1rem;
       }
-      .main-nav {
-        margin-bottom: 4rem;
-        h6 {
-          padding-right: 1rem;
-        }
-      }
-      .contact-widget {
-        margin-bottom: 4rem;
+    }
+    .contact-widget {
+      margin-bottom: 4rem;
+      padding-right: 1.5rem;
+    }
+    .connect-nav {
+      h6 {
         padding-right: 1.5rem;
       }
-      .connect-nav {
-        h6 {
-          padding-right: 1.5rem;
-        }
-      }
-      .navbar-item {
-        display: block;
-        font-size: 1.5rem;
-        color: $white;
-        background: none!important;
-        transition: color 0.5s ease;
-        padding-top: 0;
-        padding-bottom: 0;
-        &:after {
-          font-size: 2rem;
-          content: '';
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          right: 0;
-          margin: 0 auto;
-          display: block;
-          height: 0px;
-          background: transparent;
-          width: 2px;
-          transition: all 0.5s ease;
-        }
-        &:hover {
-          &:after {
-            height: 100%;
-            background: $white;
-          }
-        }
-      }
     }
-    &::before {
-      content:'';
+    .navbar-item {
       display: block;
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
+      font-size: 1.5rem;
+      color: $white;
+      background: none!important;
+      transition: color 0.5s ease;
+      padding-top: 0;
+      padding-bottom: 0;
+      &:after {
+        font-size: 2rem;
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        margin: 0 auto;
+        display: block;
+        height: 0px;
+        background: transparent;
+        width: 2px;
+        transition: all 0.5s ease;
+      }
+      &:hover {
+        &:after {
+          height: 100%;
+          background: $white;
+        }
+      }
     }
-    // Transition timing Out
-    .mobile-nav-wrap {
-      transition: all 0.5s ease;
+  }
+  &::before {
+    content:'';
+    background: $black;
+    display: block;
+    position: absolute;
+    right: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transition: all .5s 0.25s ease;
+  }
+  // Transition timing Out
+  .mobile-nav-wrap {
+    transition: all 0.5s ease;
+  }
+  &.is-active {
+    visibility: visible;
+    
+    .mobile-nav-wrap, &::before {
+      right: 0;
     }
+    // Transitions In
     &::before {
-      z-index: 8;
-      background: $black;
-      transition: all 0.5s 0.25s ease;
+      transition: all 0.5s ease;
+      box-shadow: -14px 10px 20px rgba(0,0,0,0.6);
     }
-    &.is-active {
-      visibility: visible;
-      
-      .mobile-nav-wrap, &::before, &::after {
-        left: 0;
-      }
-      // Transitions In
-      &::before {
-        transition: all 0.33s 0.25s ease;
-      }
-      .mobile-nav-wrap {
-        transition: all 0.33s 0.33s ease;
-      }
+    .mobile-nav-wrap {
+      transition: all 0.33s 0.33s ease;
     }
   }
 }
