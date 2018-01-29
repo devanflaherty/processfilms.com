@@ -79,7 +79,7 @@ export default {
   },
   asyncData ({ params, app, store }) {
     return app.$prismic.initApi().then((ctx) => {
-      return ctx.api.getSingle('home', {'fetchLinks': 'work_posts.title, work_posts.feature_image, work_posts.involvement, work_posts.description, work_posts.primary_color'}).then((res) => {
+      return ctx.api.getSingle('home', {'fetchLinks': ['work_posts.title, work_posts.feature_image, work_posts.involvement, work_posts.description, work_posts.primary_color']}).then((res) => {
         return {
           document: res,
           home: res.data

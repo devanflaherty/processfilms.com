@@ -6,10 +6,7 @@
     v-show="!loading">
     <section class="hero roster-hero is-large step">
       <heroLoader class="roster-hero-image" :hero-image="entry.member_hero"/>
-      <!-- <div class="roster-hero-image is-overlay" :style="`background-image: url(${entry.member_hero.url})`"></div> -->
-
-      <!-- Hero content: will be in the middle -->
-      <div class="hero-body"></div>
+      <!-- <div class="hero-body"></div> -->
     </section>
     
     <section class="section member-details">
@@ -33,6 +30,15 @@
           </div>
         </div>
       </div><!-- close container -->
+    </section>
+
+    <section id="showcase" class="section is-marginless is-paddingless" v-if="entry.related_work.length > 0">    
+      <div class="work-cards container">
+        <h2>Films I've worked on</h2>
+        <div class="columns is-multiline is-marginless">
+          <workCard v-for="(post, index) in entry.related_work" :key="index" :post="post.work_post" :index="index"/>
+        </div>
+      </div>
     </section>
     
     <!-- Repeatable Slices -->
@@ -97,7 +103,7 @@ export default {
           }
         )
       }), app.$prismic.initApi().then((ctx) => {
-        return ctx.api.getByUID('roster_posts', params.member)
+        return ctx.api.getByUID('roster_posts', params.member, {'fetchLinks': ['work_posts.title, work_posts.feature_image, work_posts.involvement, work_posts.description, work_posts.primary_color']})
       })
     ])
     return {
@@ -220,9 +226,16 @@ export default {
   padding-bottom: 8rem;
 }
 
+#showcase {
+  h2 {
+    margin-bottom: 2rem;
+  }
+}
+
 .article-pagination {
   display: flex;
   align-items: center;
+  margin-top: 10rem;
   margin-bottom: 5rem;
   &.align-left {
     justify-content: flex-start;
@@ -235,11 +248,25 @@ export default {
     background: none;
     border: none;
     color: white;
+    h5, span {
+      transition: all 0.5s ease;
+    }
+    &:hover {
+      h5, span {
+        opacity: 0.33;
+      }
+    }
     &.next {
       text-align: right;
+      &:hover {
+        transform: translateX(3rem);
+      }
     }
     &.prev {
       text-align: left;
+      &:hover {
+        transform: translateX(-3rem)
+      }
     }
   }
 }

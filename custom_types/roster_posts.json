@@ -233,5 +233,22 @@
       }
     }
   },
-  "Related Work" : { }
+  "Related Work" : {
+    "related_work" : {
+      "type" : "Group",
+      "config" : {
+        "fields" : {
+          "work_post" : {
+            "type" : "Link",
+            "config" : {
+              "select" : "document",
+              "customtypes" : [ "work" ],
+              "label" : "Work Post"
+            }
+          }
+        },
+        "label" : "Related Work"
+      }
+    }
+  }
 }
