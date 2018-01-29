@@ -5,7 +5,7 @@ const createStore = () => {
     state: {
       primaryColor: '#000',
       backgroundColor: '#fff',
-      navColor: '#fff',
+      navColor: 'none',
       loading: true,
       navVis: false,
       mobileNav: false,

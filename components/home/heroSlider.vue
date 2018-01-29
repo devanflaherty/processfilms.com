@@ -163,12 +163,6 @@ export default {
       }
       this.ticking = false
     }
-    // destroySwiper () {
-    //   this.isInit().then(() => {
-    //     console.log(this.$refs.mySwiper)
-    //     // this.$refs.mySwiper.swiper.destroy()
-    //   })
-    // },
   },
   created () {
     this.slideUi = this.gallery[0].contrast

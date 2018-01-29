@@ -121,9 +121,12 @@ export default {
   left: 0;
   width: 100%;
   height: 148px;
-  background: $black;
+  background: none;
   padding: 0 2rem;
   transition: background-color 0.5s ease-in-out;
+  &.bg-none {
+    background: none;
+  }
   @include mobile() {
     height: 80px;
     padding: .8rem 1rem;

@@ -1,6 +1,8 @@
 <template>
   <section id="home" class="page">
 
+    <heroSlider @sliderReady="setSliderAsReady" :gallery="home.hero_slider" v-if="home.hero_slider" />
+
     <section id="vision" class="padding-large section">
       <div class="container">
         <div class="columns">
@@ -38,30 +40,15 @@
 </template>
 
 <script>
+import heroSlider from '~/components/home/heroSlider'
 import clientLogos from '~/components/home/clientLogos'
 import {beforeEnter, enter} from '~/mixins/page-transitions'
 import {TimelineMax} from 'gsap'
 
 export default {
   components: {
+    heroSlider,
     clientLogos
-  },
-  asyncData ({ params, app, store }) {
-    return app.$prismic.initApi().then((ctx) => {
-      return ctx.api.getSingle('home', {'fetchLinks': 'work_posts.title, work_posts.feature_image, work_posts.involvement, work_posts.description, work_posts.primary_color'}).then((res) => {
-        return {
-          document: res,
-          home: res.data
-        }
-      })
-    }).catch((err) => {
-      console.log(err)
-    })
-  },
-  data () {
-    return {
-      ticking: false
-    }
   },
   head () {
     return {
@@ -90,6 +77,23 @@ export default {
       })
     }
   },
+  asyncData ({ params, app, store }) {
+    return app.$prismic.initApi().then((ctx) => {
+      return ctx.api.getSingle('home', {'fetchLinks': 'work_posts.title, work_posts.feature_image, work_posts.involvement, work_posts.description, work_posts.primary_color'}).then((res) => {
+        return {
+          document: res,
+          home: res.data
+        }
+      })
+    }).catch((err) => {
+      console.log(err)
+    })
+  },
+  data () {
+    return {
+      ticking: false
+    }
+  },
   computed: {
     clientsInfo () {
       return {
@@ -98,11 +102,17 @@ export default {
       }
     }
   },
+  methods: {
+    setSliderAsReady () {
+      this.$store.dispatch('toggleLoading', false)
+      this.$store.dispatch('toggleNavVis', true)
+    }
+  },
   created () {
     this.$store.dispatch('toggleLoading', true)
   },
   beforeMount () {
-    this.$store.dispatch('setNavColor', '#000')
+    this.$store.dispatch('setNavColor', 'transparent')
     this.$store.dispatch('setBackgroundColor', '#000')
     this.setPageStyle('#fff')
   },
