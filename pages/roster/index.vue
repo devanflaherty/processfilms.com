@@ -50,9 +50,9 @@ export default {
   },
   async asyncData ({ app, params, error, store }) {
     let page = await store.dispatch('getPage', 'roster')
-    // if (page.data.page_template === 'work') {
+
     await store.dispatch('getRoster')
-    // }
+
     return {
       document: page,
       page: page.data,
