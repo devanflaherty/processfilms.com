@@ -5,7 +5,7 @@
     :class="contrast"
     v-show="!loading">
 
-    <component is="rosterPage" :page="page"/>
+    <rosterPage :page="page"/>
     
   </div>
 </template>

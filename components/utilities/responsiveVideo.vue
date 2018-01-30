@@ -48,7 +48,6 @@ export default {
   mounted () {
     this.getVideoDimensions()
     this.videoReady = true
-    console.log(this.videoHeight, this.videoWidth)
   }
 }
 </script>

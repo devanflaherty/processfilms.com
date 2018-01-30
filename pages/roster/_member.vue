@@ -32,7 +32,7 @@
       </div><!-- close container -->
     </section>
 
-    <section id="showcase" class="section is-marginless is-paddingless" v-if="entry.related_work.length > 0">    
+    <section id="showcase" class="section" v-if="entry.related_work.length > 0">    
       <div class="work-cards container">
         <h2>Films I've worked on</h2>
         <div class="columns is-multiline is-marginless">
@@ -46,18 +46,18 @@
       :slice="slice" :is="toCamelCase(slice.slice_type)" />
 
     <!-- Pagination -->
-    <section class="pagination">
+    <section class="section">
       <div class="container">
         <div class="article-pagination columns" :class="alignment">
           <div class="column is-6" v-if="prevMember">
-            <a class="member-button prev" :href="`/roster/${prevMember.uid}`">
+            <a class="post-button prev" :href="`/roster/${prevMember.uid}`">
               <h5 class="is-size-5">Meet</h5>
               <h3 class="is-size-3">{{$prismic.asText(prevMember.name)}}</h3>
               <span class="is-size-6 arrow arrow-left">{{prevMember.position}}</span>
             </a>
           </div>
           <div class="column is-6" v-if="nextMember">
-            <a class="member-button next" :href="`/roster/${nextMember.uid}`">
+            <a class="post-button next" :href="`/roster/${nextMember.uid}`">
               <h5 class="is-size-5">Meet</h5>
               <h3 class="is-size-3">{{$prismic.asText(nextMember.name)}}</h3>
               <span class="is-size-6 arrow next">{{nextMember.position}}</span>
@@ -229,45 +229,6 @@ export default {
 #showcase {
   h2 {
     margin-bottom: 2rem;
-  }
-}
-
-.article-pagination {
-  display: flex;
-  align-items: center;
-  margin-top: 10rem;
-  margin-bottom: 5rem;
-  &.align-left {
-    justify-content: flex-start;
-  }
-  &.align-right {
-    justify-content: flex-end;
-  }
-  .member-button {
-    display: block;
-    background: none;
-    border: none;
-    color: white;
-    h5, span {
-      transition: all 0.5s ease;
-    }
-    &:hover {
-      h5, span {
-        opacity: 0.33;
-      }
-    }
-    &.next {
-      text-align: right;
-      &:hover {
-        transform: translateX(3rem);
-      }
-    }
-    &.prev {
-      text-align: left;
-      &:hover {
-        transform: translateX(-3rem)
-      }
-    }
   }
 }
 

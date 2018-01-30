@@ -1,14 +1,13 @@
 <template>
   <article class="column is-6 roster-card is-paddingless" 
     @click="clicked"
-    v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom'}"
-    @beforeReveal="animateSlices"
+    v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', delay: 250}"
     :data-wio-id="post.id">
     <div class="card-square" :class="{'active' : active}">
       <nuxt-link :to="`/roster/${post.uid}`">
         <!-- quick info overlay : reveal on hover -->
         <div class="is-overlay">
-          <div class="member-info">
+          <div class="member-info" v-scroll-reveal="{duration: 1000, scale: 1, origin: 'left', distance: '100px', delay: 250}">
             <span class="is-director" :style="`border-color: ${entry.primary_color};`" v-if="post.tags.find(tag => tag === 'Director')">View Films</span>
             <h3 class="position">
               {{$prismic.asText(entry.member_name)}}
@@ -17,14 +16,9 @@
           </div>
         </div>
 
-        <div class="image-loader" ref="imageLoader" v-if="revealed">
-          <div class="slice-wrap" v-if="revealed">
-            <div class="image-slice--full image-slice" :style="`background-image: url(${entry.member_avatar.large.url})`"></div>
-          </div>
-        </div>
         <div class="image-loader" ref="imageLoader">
-          <div class="slice-wrap" v-for="(slice, i) in 3" :key="i">
-            <div class="image-slice" v-lazy:background-image="entry.member_avatar.url"></div>
+          <div class="slice-wrap">
+            <div class="image-slice--full image-slice" :style="`background-image: url(${entry.member_avatar.large.url})`"></div>
           </div>
         </div>
       </nuxt-link>
@@ -33,12 +27,10 @@
 </template>
 
 <script>
-import {TimelineMax} from 'gsap'
 export default {
-  props: ['post'],
+  props: ['post', 'index'],
   data () {
     return {
-      revealed: false,
       active: false,
       entry: this.post.data
     }
@@ -49,23 +41,6 @@ export default {
     },
     toNewLines (str) {
       return str.split('\n').join('<br>')
-    },
-    animateSlices () {
-      let loader = this.$refs.imageLoader
-      let slices = [...loader.childNodes]
-      let imgs = slices.map((slice, i) => {
-        return slice.querySelector('.image-slice')
-      })
-      let tl = new TimelineMax({delay: 0.125})
-      tl
-        .staggerFromTo(imgs, 0.5, {
-          x: -200
-        }, {
-          x: 0
-        }, 0.125)
-        .addCallback(() => {
-          this.revealed = true
-        })
     }
   }
 }
@@ -97,6 +72,7 @@ export default {
       display: flex;
       align-items: flex-end;
       .member-info {
+        width: 100%;
         padding: 3rem;
         .is-director {
           font-size: .75rem;
@@ -153,12 +129,14 @@ export default {
         position: absolute;
         top: 0;
         height: 100%;
-        width: 300%;
+        width: 200%;
         background-size: cover;
         background-position: center;
         left: 0;
+        opacity: 0;
         &--full {
           width: 100%;
+          opacity: 1;
         }
       }
       &:nth-child(1) .image-slice {

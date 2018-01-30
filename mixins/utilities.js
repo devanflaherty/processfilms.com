@@ -7,6 +7,9 @@ Vue.mixin({
     ...mapGetters(['primaryColor', 'backgroundColor', 'loading', 'navVis'])
   },
   methods: {
+    isOdd (num) {
+      return num % 2
+    },
     setPageStyle (primary, contrast) {
       this.setPageContrast(contrast)
       this.$store.dispatch('setPrimaryColor', primary)

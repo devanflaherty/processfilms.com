@@ -33,6 +33,9 @@ var ScrollReveal = {
         options.beforeReveal = function (el) {
           emit(vnode, 'beforeReveal', el)
         }
+        options.afterReveal = function (el) {
+          emit(vnode, 'afterReveal', el)
+        }
 
         sr.reveal(el, options)
       }

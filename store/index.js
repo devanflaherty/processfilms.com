@@ -191,6 +191,9 @@ const createStore = () => {
         let ctx = await context.dispatch('setCtx')
         let entry = await ctx.api.getByUID('work_posts', slug)
         return entry
+      },
+      async nuxtServerInit ({dispatch}) {
+        await dispatch('getMenus')
       }
     }
   })

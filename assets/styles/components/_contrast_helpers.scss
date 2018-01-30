@@ -20,7 +20,7 @@
   }
 
   // LINKS
-  .rich-text a:not(.button), .rich-text a:not(.arrow), footer a {
+  .rich-text a:not(.button), .rich-text a:not(.arrow), footer a, a.hilite {
     color: $black;
     &:before {
       background: $black;

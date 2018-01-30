@@ -26,7 +26,6 @@ export const leave = function (el, done) {
   }, 0.5)
 
   if (el.querySelector('.stagger')) {
-    console.log('stagger')
     let stagger = new TimelineMax()
     stagger.staggerTo('.stagger', 0.25, {
       autoAlpha: 0,

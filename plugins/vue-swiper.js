@@ -34,7 +34,6 @@ if (process.browser) {
           var swiper = _this[instanceName]
           if (!swiper) {
             _this[instanceName] = new Swiper(el, options)
-            console.log('hello')
           }
         },
         componentUpdated: function componentUpdated (el, binding, vnode) {

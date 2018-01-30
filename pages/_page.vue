@@ -1,6 +1,7 @@
 <template>
   <div 
     id="page" 
+    class="page"
     :class="contrast"
     v-show="!loading">
 

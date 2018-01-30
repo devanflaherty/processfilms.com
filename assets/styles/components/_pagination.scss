@@ -1,0 +1,50 @@
+.article-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 10rem;
+  margin-bottom: 5rem;
+  .column {
+    @include mobile () {
+      flex: 1 0 100%;
+    }
+  }
+  &.align-left {
+    justify-content: flex-start;
+  }
+  &.align-right {
+    justify-content: flex-end;
+  }
+  .post-button {
+    display: block;
+    background: none;
+    border: none;
+    color: white;
+    h5, span {
+      transition: all 0.5s ease;
+    }
+    &:hover {
+      h5, span {
+        opacity: 0.33;
+      }
+    }
+    &.next {
+      text-align: right;
+      &:hover {
+        transform: translateX(1.5rem);
+        @include mobile() {
+          transform: translateX(.5rem);
+        }
+      }
+    }
+    &.prev {
+      text-align: left;
+      &:hover {
+        transform: translateX(-1.5rem);
+        @include mobile() {
+          transform: translateX(-0.5rem);
+        }
+      }
+    }
+  }
+}

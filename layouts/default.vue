@@ -19,7 +19,6 @@ import SiteFooter from '~/components/SiteFooter'
 
 import breakpoints from '~/mixins/breakpoints'
 import {beforeEnter, enter, leave} from '~/mixins/page-transitions'
-import {mapGetters} from 'vuex'
 
 export default {
   components: {
@@ -34,13 +33,7 @@ export default {
     enter,
     leave
   },
-  mixins: [breakpoints],
-  computed: {
-    ...mapGetters(['loading'])
-  },
-  created () {
-    this.$store.dispatch('getMenus')
-  }
+  mixins: [breakpoints]
 }
 </script>
 
@@ -109,28 +102,6 @@ export default {
     span:nth-child(3) {
       animation: wave-right infinite 2s;
     }
-  }
-}
-@keyframes wave-left {
-  0% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(-50px, 0);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
-@keyframes wave-right {
-  0% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(50px, 0);
-  }
-  100% {
-    transform: translate(0, 0);
   }
 }
 </style>

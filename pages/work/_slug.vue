@@ -31,11 +31,11 @@
                   v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom'}"></div>
                 </div>
 
-                <div class="column is-6">
+                <div class="column is-5 is-offset-1-tablet">
                   <div class="director roster-member" v-for="(member, index) in entry.work_roster" :key="index">
                     <h6>{{member.member_position}}</h6>
-                      <nuxt-link :to="$prismic.asLink(member.member_link)" v-if="member.member_link.id">
-                        <span>{{member.member_name}}</span>
+                      <nuxt-link class="hilite" :to="$prismic.asLink(member.member_link)" v-if="member.member_link.id">
+                        {{member.member_name}}
                       </nuxt-link>
                       <span v-else>{{member.member_name}}</span>
                   </div>
@@ -51,6 +51,29 @@
     <!-- Repeatable Slices -->
     <component v-for="(slice, index) in entry.slices" :key="index" 
       :slice="slice"  :is="toCamelCase(slice.slice_type)"></component>
+
+
+    <!-- Pagination -->
+    <section class="pagination">
+      <div class="container">
+        <div class="article-pagination columns" :class="alignment">
+          <div class="column is-6" v-if="prevPost">
+            <a class="member-button prev" :href="`/work/${prevPost.uid}`">
+              <h5 class="is-size-5">Previous</h5>
+              <h3 class="is-size-3">{{$prismic.asText(prevPost.title)}}</h3>
+              <!-- <span class="is-size-6 arrow arrow-left">{{prevPost.position}}</span> -->
+            </a>
+          </div>
+          <div class="column is-6" v-if="nextPost">
+            <a class="post-button next" :href="`/work/${nextPost.uid}`">
+              <h5 class="is-size-5">Next</h5>
+              <h3 class="is-size-3">{{$prismic.asText(nextPost.title)}}</h3>
+              <!-- <span class="is-size-6 arrow next">{{nextMember.position}}</span> -->
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </section>
 </template>
@@ -95,13 +118,48 @@ export default {
   },
   async asyncData ({ app, params, store }) {
     let entry = await store.dispatch('getWorkPost', params.slug)
+
+    await store.dispatch('getWork')
+
     return {
       document: entry,
       entry: entry.data
     }
   },
+  data () {
+    return {
+      currentIndex: null
+    }
+  },
   computed: {
     ...mapGetters(['breakpoint']),
+    ...mapGetters(['work']),
+    prevPost () {
+      let post = this.work.results[this.currentIndex - 1]
+      if (post) {
+        return {
+          uid: post.uid,
+          title: post.data.title
+        }
+      }
+    },
+    nextPost () {
+      let current = this.currentIndex + 1
+      if (this.work.results.length > current) {
+        let post = this.work.results[this.currentIndex + 1]
+        return {
+          uid: post.uid,
+          title: post.data.title
+        }
+      }
+    },
+    alignment () {
+      return {
+        'align-left': this.prevPost && !this.nextPost,
+        'align-right': this.nextPost && !this.prevPost,
+        'align-center': this.nextPost && this.prevPost
+      }
+    },
     seoTitle () {
       if (this.entry.meta_title > 0) {
         return this.entry.meta_title
@@ -138,6 +196,13 @@ export default {
     this.$store.dispatch('setBackgroundColor', this.entry.background_color)
   },
   mounted () {
+    if (this.work) {
+      let index = this.work.results.findIndex(el => {
+        return el.uid === this.document.uid
+      })
+      this.currentIndex = index
+    }
+
     if (this.document) {
       this.$store.dispatch('toggleNavVis', true)
       this.$store.dispatch('toggleLoading', false)

@@ -14,7 +14,7 @@
         </div>
       
         <!-- ROSTER LOOP-->
-        <rosterCard v-for="(post, index) in roster.results" :key="index" :post="post"/>
+        <rosterCard v-for="(post, index) in roster.results" :key="index" :post="post" :index="index" />
       </div> <!-- close columns -->
     </div><!-- close container -->
 

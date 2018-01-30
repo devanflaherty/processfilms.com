@@ -4,7 +4,7 @@
       class="work-card" 
       :class="{'hover' : hover, 'is-full': $route.name !== 'index'}"
       :style="`background-color:`"
-      v-scroll-reveal="{duration: 1000, scale: 1, distance: 0, opacity: 1, viewOffset: { bottom: 50 }}"
+      v-scroll-reveal="{duration: 1000, scale: 1, distance: '40px', viewOffset: { bottom: 50 }, delay: revealDelay}"
       :data-wio-id="post.id">
       
       <nuxt-link :to="`/work/${post.uid}`">
@@ -45,29 +45,14 @@ export default {
         'has-text-right': this.isOdd(this.index) === 0,
         'has-text-left': this.isOdd(this.index) === 1
       }
+    },
+    revealDelay () {
+      if (this.isOdd(this.index) === 0) {
+        return 0
+      } else {
+        return 250
+      }
     }
-  },
-  methods: {
-    isOdd (num) {
-      return num % 2
-    }
-    // animateSlices () {
-    //   let loader = this.$refs.imageLoader
-    //   let slices = [...loader.childNodes]
-    //   let imgs = slices.map((slice, i) => {
-    //     return slice.querySelector('.image-slice')
-    //   })
-    //   let tl = new TimelineMax()
-    //   let staggerSlices = () => {
-    //     tl.staggerFromTo(imgs, 0.5, {
-    //       y: 200
-    //     }, {
-    //       y: 0
-    //     }, 0.25)
-    //   }
-
-    //   window.requestAnimationFrame(staggerSlices)
-    // }
   }
 }
 </script>
