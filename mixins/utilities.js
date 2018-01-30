@@ -46,14 +46,4 @@ Vue.mixin({
   destroy () {
     this.setHeroUiContrast()
   }
-  // scrollTo (el, obj) {
-  //   // this.$ss().to(el)
-  //   TweenMax.to(window, 1, {
-  //     scrollTo: el
-  //   })
-  // }
-  // beforeDestroy () {
-  //   var body = document.querySelector('body')
-  //   body.style.backgroundColor = null
-  // }
 })

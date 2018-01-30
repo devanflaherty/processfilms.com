@@ -25,8 +25,7 @@
 
         <div class="member-social columns" v-if="entry.social_links[0].link_label">
           <div class="column is-narrow" v-for="(link, index ) in entry.social_links" :key="index">
-            <nuxt-link v-if="link.link_url.link_type === 'Document'" :to="$prismic.asLink(link.link_url)">{{link.link_label}}</nuxt-link>
-            <a v-else :href="$prismic.asLink(link.link_url)" target="_blank" rel="noopener">{{link.link_label}}</a>
+            <prismic-link :link="link.link_url">{{link.link_label}}</prismic-link>
           </div>
         </div>
       </div><!-- close container -->

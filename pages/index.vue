@@ -108,9 +108,6 @@ export default {
       this.$store.dispatch('toggleNavVis', true)
     }
   },
-  created () {
-    this.$store.dispatch('toggleLoading', true)
-  },
   beforeMount () {
     this.$store.dispatch('setNavColor', 'transparent')
     this.$store.dispatch('setBackgroundColor', '#000')

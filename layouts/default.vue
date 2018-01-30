@@ -1,7 +1,10 @@
 <template>
   <main class="main">
     <transition name="fade-in">
-      <h1 v-if="loading && $route.name !== 'index'" class="home-loading has-text-white is-size-1">||</h1>
+      <div v-if="loading" id="loader">
+        <img id="loader" src="/images/rings.svg">
+      </div>
+      <!-- <h1 v-if="loading && $route.name !== 'index'" class="home-loading has-text-white is-size-1">||</h1> -->
     </transition>
     <div id="backgroundTransition" class="background-transition">
       <span class="bgSpan"></span>
@@ -81,27 +84,34 @@ export default {
 
 #loader {
   position: fixed;
-  z-index: 100;
+  z-index: 500;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  left: 0; top: 0;
-  h1 {
-    color: black;
-    font-weight: 800;
-    span {
-      font-size: 44px!important;
-      color: black;
-      display: inline-block;
-    }
-    span:nth-child(1) {
-      animation: wave-left infinite 2s;
-    }
-    span:nth-child(3) {
-      animation: wave-right infinite 2s;
-    }
+  left: 0; top: 0; bottom: 0; right: 0;
+  img {
+    left: 0; top: 0; bottom: 0; right: 0;
+    margin: auto;
+    position: absolute;
+    width: 60px;
+    height: 60px;
   }
+  // h1 {
+  //   color: black;
+  //   font-weight: 800;
+  //   span {
+  //     font-size: 44px!important;
+  //     color: black;
+  //     display: inline-block;
+  //   }
+  //   span:nth-child(1) {
+  //     animation: wave-left infinite 2s;
+  //   }
+  //   span:nth-child(3) {
+  //     animation: wave-right infinite 2s;
+  //   }
+  // }
 }
 </style>

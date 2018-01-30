@@ -7,7 +7,8 @@
             <captionedImage :img="slide.gallery_image" :caption="slide.slide_caption" />
           </template>
           <template v-else>
-            <img v-lazy="slide.gallery_image.url"  :alt="slide.gallery_image.alt">
+            <!-- <img lazy="loading" src="/images/rings.svg" :width="slide.gallery_image.large.dimensions.width" :height="slide.gallery_image.large.dimensions.height"> -->
+            <img class="lazy" v-lazy="slide.gallery_image.large.url"  :alt="slide.gallery_image.alt" :width="slide.gallery_image.large.dimensions.width" :height="slide.gallery_image.large.dimensions.height">
           </template>
         </article>
       </div>

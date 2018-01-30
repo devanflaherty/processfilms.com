@@ -34,10 +34,8 @@
                 <div class="column is-5 is-offset-1-tablet">
                   <div class="director roster-member" v-for="(member, index) in entry.work_roster" :key="index">
                     <h6>{{member.member_position}}</h6>
-                      <nuxt-link class="hilite" :to="$prismic.asLink(member.member_link)" v-if="member.member_link.id">
-                        {{member.member_name}}
-                      </nuxt-link>
-                      <span v-else>{{member.member_name}}</span>
+                    <prismic-link class="hilite" v-if="member.member_link.id" :link="member.member_link">{{member.member_name}}</prismic-link>
+                    <span v-else>{{member.member_name}}</span>
                   </div>
                 </div>
               </div>
@@ -54,11 +52,11 @@
 
 
     <!-- Pagination -->
-    <section class="pagination">
+    <section class="section">
       <div class="container">
         <div class="article-pagination columns" :class="alignment">
           <div class="column is-6" v-if="prevPost">
-            <a class="member-button prev" :href="`/work/${prevPost.uid}`">
+            <a class="post-button prev" :href="`/work/${prevPost.uid}`">
               <h5 class="is-size-5">Previous</h5>
               <h3 class="is-size-3">{{$prismic.asText(prevPost.title)}}</h3>
               <!-- <span class="is-size-6 arrow arrow-left">{{prevPost.position}}</span> -->

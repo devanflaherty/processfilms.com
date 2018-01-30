@@ -9,8 +9,7 @@
             <h5><strong>{{$prismic.asText(navigationMenu.title)}}</strong></h5>
             <ul>
               <li v-for="(link, index) in navigationMenu.menu" :key="index">
-                <nuxt-link v-if="link.link_url.link_type === 'Document'" :to="$prismic.asLink(link.link_url)">{{link.link_label}}</nuxt-link>
-                <a v-else :href="$prismic.asLink(link.link_url)">{{link.link_label}}</a>
+                <prismic-link :link="link.link_url">{{link.link_label}}</prismic-link>
               </li>
             </ul>
           </div>
@@ -19,8 +18,7 @@
             <h5><strong>{{$prismic.asText(connectMenu.title)}}</strong></h5>
             <ul>
               <li v-for="(link, index) in connectMenu.menu" :key="index">
-                <nuxt-link v-if="link.link_url.link_type === 'Document'" :to="$prismic.asLink(link.link_url)">{{link.link_label}}</nuxt-link>
-                <a v-else :href="$prismic.asLink(link.link_url)">{{link.link_label}}</a>
+                <prismic-link :link="link.link_url">{{link.link_label}}</prismic-link>
               </li>
             </ul>
           </div>
@@ -67,6 +65,10 @@ footer {
   .footer-wrap {
     padding-bottom: 6rem;
     padding-top: 6rem;
+    @include mobile() {
+      padding-bottom: 0;
+      padding-top: 6rem;
+    }
   }
   h5 {
     margin-bottom: 1.25rem;
