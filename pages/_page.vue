@@ -91,9 +91,6 @@ export default {
       return 'https://processfilms.com' + this.$route.fullPath
     }
   },
-  created () {
-    this.$store.dispatch('toggleLoading', true)
-  },
   beforeMount () {
     this.$store.dispatch('setNavColor', this.page.nav_color)
     this.$store.dispatch('setBackgroundColor', this.page.background_color)

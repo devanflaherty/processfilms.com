@@ -64,25 +64,25 @@ module.exports = {
     { src: `~plugins/waypoints`, ssr: false }
   ],
   router: {
-    middleware: ['toggleMobileNav'],
-    scrollBehavior: function (to, from, savedPosition) {
-      // savedPosition is only available for popstate navigations.
-      if (savedPosition) {
-        return savedPosition
-      } else {
-        let position = {}
-        // if no children detected
-        if (to.matched.length < 2) {
-          // scroll to the top of the page
-          // position = { x: 0, y: 0 }
-        }
-        // if link has anchor,  scroll to anchor by returning the selector
-        if (to.hash) {
-          position = { selector: to.hash }
-        }
-        return position
-      }
-    }
+    middleware: ['toggleMobileNav']
+    // scrollBehavior: function (to, from, savedPosition) {
+    //   // savedPosition is only available for popstate navigations.
+    //   if (savedPosition) {
+    //     return savedPosition
+    //   } else {
+    //     let position = {}
+    //     // if no children detected
+    //     if (to.matched.length < 2) {
+    //       // scroll to the top of the page
+    //       // position = { x: 0, y: 0 }
+    //     }
+    //     // if link has anchor,  scroll to anchor by returning the selector
+    //     if (to.hash) {
+    //       position = { selector: to.hash }
+    //     }
+    //     return position
+    //   }
+    // }
   },
   build: {
     // Load plugins in build

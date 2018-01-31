@@ -49,18 +49,18 @@
       <div class="container">
         <div class="article-pagination columns" :class="alignment">
           <div class="column is-6" v-if="prevMember">
-            <a class="post-button prev" :href="`/roster/${prevMember.uid}`">
+            <nuxt-link class="post-button prev" :to="`/roster/${prevMember.uid}`">
               <h5 class="is-size-5">Meet</h5>
               <h3 class="is-size-3">{{$prismic.asText(prevMember.name)}}</h3>
               <span class="is-size-6 arrow arrow-left">{{prevMember.position}}</span>
-            </a>
+            </nuxt-link>
           </div>
           <div class="column is-6" v-if="nextMember">
-            <a class="post-button next" :href="`/roster/${nextMember.uid}`">
+            <nuxt-link class="post-button next" :to="`/roster/${nextMember.uid}`">
               <h5 class="is-size-5">Meet</h5>
               <h3 class="is-size-3">{{$prismic.asText(nextMember.name)}}</h3>
               <span class="is-size-6 arrow next">{{nextMember.position}}</span>
-            </a>
+            </nuxt-link>
           </div>
         </div>
       </div>

@@ -32,11 +32,14 @@
                 </div>
 
                 <div class="column is-5 is-offset-1-tablet">
-                  <div class="director roster-member" v-for="(member, index) in entry.work_roster" :key="index">
-                    <h6>{{member.member_position}}</h6>
-                    <prismic-link class="hilite" v-if="member.member_link.id" :link="member.member_link">{{member.member_name}}</prismic-link>
-                    <span v-else>{{member.member_name}}</span>
-                  </div>
+                  <ul class="roster-list">
+                    <li class="roster-member" v-for="(member, index) in entry.work_roster" :key="index" :class="{'roster-member--hidden': index > 2}">
+                      <h6>{{member.member_position}}</h6>
+                      <prismic-link class="hilite" v-if="member.member_link.id" :link="member.member_link">{{member.member_name}}</prismic-link>
+                      <span v-else>{{member.member_name}}</span>
+                    </li>
+                  </ul>
+                  <button v-if="entry.work_roster.length > 3" class="roster-list-button" @click="showAllRoster">+</button>
                 </div>
               </div>
             </div>
@@ -56,18 +59,18 @@
       <div class="container">
         <div class="article-pagination columns" :class="alignment">
           <div class="column is-6" v-if="prevPost">
-            <a class="post-button prev" :href="`/work/${prevPost.uid}`">
+            <nuxt-link class="post-button prev" :to="`/work/${prevPost.uid}`">
               <h5 class="is-size-5">Previous</h5>
               <h3 class="is-size-3">{{$prismic.asText(prevPost.title)}}</h3>
               <!-- <span class="is-size-6 arrow arrow-left">{{prevPost.position}}</span> -->
-            </a>
+            </nuxt-link>
           </div>
           <div class="column is-6" v-if="nextPost">
-            <a class="post-button next" :href="`/work/${nextPost.uid}`">
+            <nuxt-link class="post-button next" :to="`/work/${nextPost.uid}`">
               <h5 class="is-size-5">Next</h5>
               <h3 class="is-size-3">{{$prismic.asText(nextPost.title)}}</h3>
               <!-- <span class="is-size-6 arrow next">{{nextMember.position}}</span> -->
-            </a>
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -80,6 +83,7 @@
 import {mapGetters} from 'vuex'
 import { beforeEnter, enter, leave } from '~/mixins/page-transitions'
 import WorkHero from '~/components/work/workHero'
+import {TimelineMax, Back} from 'gsap'
 
 export default {
   head () {
@@ -126,7 +130,8 @@ export default {
   },
   data () {
     return {
-      currentIndex: null
+      currentIndex: null,
+      showRoster: false
     }
   },
   computed: {
@@ -186,8 +191,36 @@ export default {
       if (!this.entry.highlight_video.html && !this.entry.aproach) return 'marginHero'
     }
   },
-  created () {
-    this.$store.dispatch('toggleLoading', true)
+  methods: {
+    showAllRoster () {
+      let hidden = new TimelineMax()
+      let items = [].slice.call(document.querySelectorAll('.roster-member--hidden'))
+
+      if (!this.showRoster) {
+        this.showRoster = true
+        hidden
+          .set(items, {
+            y: 20
+          })
+          .staggerTo(items, 0.5, {
+            y: 0,
+            height: '5rem',
+            autoAlpha: 1,
+            marginBottom: '1rem',
+            ease: Back.easeOut.config(1.7)
+          }, 0.125)
+      } else {
+        this.showRoster = false
+        hidden
+          .staggerTo(items.reverse(), 0.25, {
+            y: 20,
+            height: 0,
+            autoAlpha: 0,
+            marginBottom: 0,
+            ease: Back.easeOut.config(1.7)
+          }, 0.125)
+      }
+    }
   },
   beforeMount () {
     this.$store.dispatch('setNavColor', this.entry.nav_color)
@@ -244,6 +277,22 @@ export default {
   }
   .roster-member {
     margin-bottom: 1rem;
+    height: 5rem;
+    &--hidden {
+      height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      margin: 0;
+    }
+  }
+  .roster-list-button {
+    background: none;
+    border: none;
+    outline: none;
+    height: 2rem;
+    width: 2rem;
+    padding: 0;
+    line-height: 1;
   }
 }
 

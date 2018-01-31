@@ -1,8 +1,11 @@
 <template>
   <main class="main">
-    <transition name="fade-in">
-      <div v-if="loading" id="loader">
-        <img id="loader" src="/images/rings.svg">
+    <transition v-if="loading" name="fade-in">
+      <div id="loader">
+        <div class="wrap">
+          <!-- <img src="/images/rings.svg"> -->
+          <Logo :animate="navVis" />
+        </div>
       </div>
       <!-- <h1 v-if="loading && $route.name !== 'index'" class="home-loading has-text-white is-size-1">||</h1> -->
     </transition>
@@ -16,7 +19,7 @@
 </template>
 
 <script>
-
+import Logo from '~/components/Logo'
 import SiteNav from '~/components/SiteNav'
 import SiteFooter from '~/components/SiteFooter'
 
@@ -25,6 +28,7 @@ import {beforeEnter, enter, leave} from '~/mixins/page-transitions'
 
 export default {
   components: {
+    Logo,
     SiteNav,
     SiteFooter
   },
@@ -97,6 +101,9 @@ export default {
     position: absolute;
     width: 60px;
     height: 60px;
+  }
+  .wrap {
+    width: 40px;
   }
   // h1 {
   //   color: black;
