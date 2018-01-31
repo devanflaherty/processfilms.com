@@ -93,17 +93,8 @@ export default {
   },
   async asyncData ({ params, app, store }) {
     let [rosterPosts, member] = await Promise.all([
-      app.$prismic.initApi().then((ctx) => {
-        return ctx.api.query(
-          app.$prismic.predicates.at('document.type', 'roster_posts'),
-          {
-            orderings: '[my.roster_posts.post_position, my.roster_posts.title]',
-            fetch: ['roster_posts.member_name', 'roster_posts.member_position']
-          }
-        )
-      }), app.$prismic.initApi().then((ctx) => {
-        return ctx.api.getByUID('roster_posts', params.member, {'fetchLinks': ['work_posts.title, work_posts.feature_image, work_posts.involvement, work_posts.description, work_posts.primary_color']})
-      })
+      store.dispatch('getRoster'),
+      store.dispatch('getRosterMember', params.member)
     ])
     return {
       rosterPosts: rosterPosts.results,
@@ -151,9 +142,6 @@ export default {
         'has-text-white': this.entry.page_contrast === 'Light'
       }
     }
-  },
-  created () {
-    this.$store.dispatch('toggleLoading', true)
   },
   beforeMount () {
     this.$store.dispatch('setNavColor', this.entry.nav_color)

@@ -149,6 +149,11 @@ const createStore = () => {
       changeBreakpoint (context, bp) {
         context.commit('CHANGE_BREAKPOINT', bp)
       },
+      async getHome (context) {
+        let ctx = await context.dispatch('setCtx')
+        let home = await ctx.api.getSingle('home', {'fetchLinks': ['work_posts.title, work_posts.feature_image, work_posts.involvement, work_posts.description, work_posts.primary_color']})
+        return home
+      },
       async getMenus (context) {
         let ctx = await context.dispatch('setCtx')
         let menu = await ctx.api.getSingle('menu')
@@ -173,10 +178,19 @@ const createStore = () => {
         let ctx = await context.dispatch('setCtx')
         let roster = await ctx.api.query(
           this.$prismic.predicates.at('document.type', 'roster_posts'),
-          { orderings: '[my.roster_posts.post_position, my.roster_posts.member_name]' }
+          {
+            orderings: '[my.roster_posts.post_position, my.roster_posts.title]',
+            fetch: ['roster_posts.member_name', 'roster_posts.member_position']
+          }
         )
 
         context.commit('SET_ROSTER', roster)
+        return roster
+      },
+      async getRosterMember (context, memberUid) {
+        let ctx = await context.dispatch('setCtx')
+        let member = await ctx.api.getByUID('roster_posts', memberUid, {'fetchLinks': ['work_posts.title, work_posts.feature_image, work_posts.involvement, work_posts.description, work_posts.primary_color']})
+        return member
       },
       async getWork (context) {
         let ctx = await context.dispatch('setCtx')

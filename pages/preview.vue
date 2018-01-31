@@ -18,7 +18,7 @@ export default {
       return this.$route.query.token
     }
   },
-  mounted () {
+  beforeCreate () {
     this.$prismic.initApi().then((ctx) => {
       ctx.api.previewSession(this.token, ctx.linkResolver, '/').then((url) => {
         if (Cookies.get(Prismic.previewCookie)) {
