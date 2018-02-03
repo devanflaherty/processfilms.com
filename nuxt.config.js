@@ -1,5 +1,4 @@
 const path = require('path')
-const Jarvis = require('webpack-jarvis')
 const UglifyJSWebpackPlugin = require('uglifyjs-webpack-plugin')
 
 let url = 'https://processfilms.com'
@@ -36,6 +35,10 @@ module.exports = {
       {
         src: 'https://fast.wistia.com/assets/external/E-v1.js',
         async: true
+      },
+      { 
+        defer: true,
+        src: 'https://use.fontawesome.com/releases/v5.0.0/js/all.js'
       }
     ]
   },
@@ -50,8 +53,8 @@ module.exports = {
   ** Add modules
   */
   modules: [
-    '@nuxtjs/pwa',
-    '@nuxtjs/font-awesome'
+    '@nuxtjs/pwa'
+    // '@nuxtjs/font-awesome'
     // ['@nuxtjs/google-analytics', { ua: 'UA-108368424-1' }]
   ],
   plugins: [
@@ -65,24 +68,6 @@ module.exports = {
   ],
   router: {
     middleware: ['toggleMobileNav']
-    // scrollBehavior: function (to, from, savedPosition) {
-    //   // savedPosition is only available for popstate navigations.
-    //   if (savedPosition) {
-    //     return savedPosition
-    //   } else {
-    //     let position = {}
-    //     // if no children detected
-    //     if (to.matched.length < 2) {
-    //       // scroll to the top of the page
-    //       // position = { x: 0, y: 0 }
-    //     }
-    //     // if link has anchor,  scroll to anchor by returning the selector
-    //     if (to.hash) {
-    //       position = { selector: to.hash }
-    //     }
-    //     return position
-    //   }
-    // }
   },
   build: {
     // Load plugins in build
@@ -99,7 +84,6 @@ module.exports = {
       config.resolve.alias['ScrollToPlugin'] = path.resolve('node_modules', 'gsap/ScrollToPlugin.js')
 
       if (ctx.isDev && ctx.isClient) {
-        config.plugins.push(new Jarvis())
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,

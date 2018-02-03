@@ -66,9 +66,6 @@ export default {
       }
 
       leave.addCallback(() => {
-        window.scrollTo(0, 0)
-      })
-      leave.addCallback(() => {
         done()
       })
     }

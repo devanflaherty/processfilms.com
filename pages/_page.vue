@@ -2,8 +2,7 @@
   <div 
     id="page" 
     class="page"
-    :class="contrast"
-    v-show="!loading">
+    :class="contrast">
 
     <component :is="template + 'Page'" :page="page"/>
     
@@ -53,16 +52,20 @@ export default {
     workPage
   },
   async asyncData ({ app, params, error, store }) {
-    let page = await store.dispatch('getPage', params.page)
-    if (page.data.page_template === 'roster') {
-      await store.dispatch('getRoster')
-    } else if (page.data.page_template === 'work') {
-      await store.dispatch('getWork')
-    }
-    return {
-      document: page,
-      page: page.data,
-      template: page.data.page_template
+    try {
+      let page = await store.dispatch('getPage', params.page)
+      if (page.data.page_template === 'roster') {
+        await store.dispatch('getRoster')
+      } else if (page.data.page_template === 'work') {
+        await store.dispatch('getWork')
+      }
+      return {
+        document: page,
+        page: page.data,
+        template: page.data.page_template
+      }
+    } catch (err) {
+      error({statusCode: 404, message: `The page you are looking for does not exist. `, err: err})
     }
   },
   computed: {

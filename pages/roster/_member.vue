@@ -2,8 +2,7 @@
   <div 
     :data-wio-id="document.id" 
     id="memberPage" 
-    class="page push-top" 
-    v-show="!loading">
+    class="page push-top">
     <section class="hero roster-hero is-large step">
       <heroLoader class="roster-hero-image" :hero-image="entry.member_hero"/>
       <!-- <div class="hero-body"></div> -->
@@ -91,15 +90,19 @@ export default {
     enter,
     leave
   },
-  async asyncData ({ params, app, store }) {
-    let [rosterPosts, member] = await Promise.all([
-      store.dispatch('getRoster'),
-      store.dispatch('getRosterMember', params.member)
-    ])
-    return {
-      rosterPosts: rosterPosts.results,
-      document: member,
-      entry: member.data
+  async asyncData ({ params, app, store, error }) {
+    try {
+      let [rosterPosts, member] = await Promise.all([
+        store.dispatch('getRoster'),
+        store.dispatch('getRosterMember', params.member)
+      ])
+      return {
+        rosterPosts: rosterPosts.results,
+        document: member,
+        entry: member.data
+      }
+    } catch (err) {
+      error({statusCode: 404, message: `The page you are looking for does not exist. `, err: err})
     }
   },
   data () {

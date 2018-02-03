@@ -2,8 +2,7 @@
   <section 
     id="workPage" 
     class="page push-top" 
-    :class="contrast"
-    v-show="!loading">
+    :class="contrast">
     <!-- <WorkHero :class="{'add-margin': margin === 'marginHero'}" :entry="entry" /> -->
 
     <section class="hero" v-if="entry.work_video.html">
@@ -118,14 +117,18 @@ export default {
     enter,
     leave
   },
-  async asyncData ({ app, params, store }) {
-    let entry = await store.dispatch('getWorkPost', params.slug)
+  async asyncData ({ app, params, store, error }) {
+    try {
+      let entry = await store.dispatch('getWorkPost', params.slug)
 
-    await store.dispatch('getWork')
+      await store.dispatch('getWork')
 
-    return {
-      document: entry,
-      entry: entry.data
+      return {
+        document: entry,
+        entry: entry.data
+      }
+    } catch (err) {
+      error({statusCode: 404, message: `The page you are looking for does not exist. `, err: err})
     }
   },
   data () {

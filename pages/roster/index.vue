@@ -2,8 +2,7 @@
   <div 
     :data-wio-id="document.id" 
     id="page" 
-    :class="contrast"
-    v-show="!loading">
+    :class="contrast">
 
     <rosterPage :page="page"/>
     
@@ -49,14 +48,18 @@ export default {
     rosterPage
   },
   async asyncData ({ app, params, error, store }) {
-    let page = await store.dispatch('getPage', 'roster')
+    try {
+      let page = await store.dispatch('getPage', 'roster')
 
-    await store.dispatch('getRoster')
+      await store.dispatch('getRoster')
 
-    return {
-      document: page,
-      page: page.data,
-      template: page.data.page_template
+      return {
+        document: page,
+        page: page.data,
+        template: page.data.page_template
+      }
+    } catch (err) {
+      error({statusCode: 404, message: `The page you are looking for does not exist. `, err: err})
     }
   },
   computed: {

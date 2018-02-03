@@ -12,7 +12,7 @@
           <div class="work-quick-title column">
             <h2 class="quick-title">
               {{$prismic.asText(entry.title)}}
-              <!-- <span>{{entry.description[0].text}}</span> -->
+              <span>{{entry.client}}</span>
             </h2>
           </div>
         </div>
@@ -96,53 +96,76 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        justify-content: flex-start;
+        justify-content: center;
         .column {
           flex: 0 1 auto;
         }
       }
       h2.quick-title {
-        font-size: 1.5rem;
+        position: relative;
         color: white;
         transition: all 0.5s ease;
-        span {
-          font-size: 1.5rem;
-          display: inline-block;
-          font-weight: $lightW;
-          color: rgba(white, 0.8);
-          @include autoAlpha(0);
-          transition: all 0.5s 0.125s ease;
-          @include mobile() {
-            display: block;
-            margin-left: 0;
-          } 
+        display: inline-block;
+        @include mobile () {
+          font-size: 1.66rem;
         }
+        @include tablet () {
+          font-size: 1.125rem;
+        }
+        @include desktop () {
+          font-size: 1.125rem;
+        }
+        &:after {
+          content: '';
+          display: block;
+          width: 0;
+          height: 2px;
+          position: absolute;
+          bottom: 0;
+          background: $white;
+          transition: all 0.5s cubic-bezier(.97,0,.51,1.5);
+        }
+      }
+    }
+    h2.quick-title span {
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      @include mobile () {
+        font-size: 1.33rem;
+      }
+      @include tablet () {
+        font-size: .75rem;
+      }
+      @include desktop () {
+        font-size: .75rem;
       }
     }
   }
   &:hover {
     .work-quick-info {
-      // background: rgba(black, 0.7);
+      background: rgba(black, 0.33);
       h2.quick-title {
         transform: translate(50px, 0);
-        span {
-          @include autoAlpha(1);
-          transform: translate(-100px, 0);
+        &:after {
+          animation: spanIn .66s reverse;
         }
       }
       &.has-text-right {
         h2.quick-title {
           transform: translate(-50px, 0);
         }
-        span {
-          transform: translate(100px, 0);
-        }
       }
+    }
+    .image-loader {
+      transform: scale(1.075)
     }
   }
 
   .image-loader {
     display: flex;
+    transition: all .33s ease;
     @include overlay();
     overflow: hidden;
     .slice-wrap {
@@ -177,6 +200,24 @@ export default {
         left: -200%;
       }
     }
+  }
+}
+
+@keyframes spanIn {
+  0% {
+    width: 0;
+    left: 0;
+    right: auto;
+  }
+  50% {
+    width: 100%;
+  }
+  51% {
+    right: 0;
+    left: auto;
+  }
+  100% {
+    width: 0;
   }
 }
 </style>

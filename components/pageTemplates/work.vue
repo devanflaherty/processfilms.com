@@ -1,7 +1,7 @@
 <template>
   <section id="featuredWork" class="page push-top">
-    <div class="work-cards">
-      <workCard v-for="(post, index) in work.results" :key="index" :post="post"/>
+    <div class="work-cards columns is-paddingless is-marginless is-multiline">
+      <workCard class="column is-4-desktop is-6-tablet is-12-mobile is-paddingless is-marginless" v-for="(post, index) in work.results" :key="index" :post="post"/>
     </div>
   </section>
 </template>

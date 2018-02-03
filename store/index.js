@@ -180,7 +180,7 @@ const createStore = () => {
           this.$prismic.predicates.at('document.type', 'roster_posts'),
           {
             orderings: '[my.roster_posts.post_position, my.roster_posts.title]',
-            fetch: ['roster_posts.member_name', 'roster_posts.member_position']
+            fetch: ['roster_posts.member_name', 'roster_posts.member_position', 'roster_posts.member_avatar']
           }
         )
 

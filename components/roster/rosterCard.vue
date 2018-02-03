@@ -16,9 +16,9 @@
           </div>
         </div>
 
-        <div class="image-loader" ref="imageLoader">
+        <div class="image-loader" ref="imageLoader" v-if="entry.member_avatar">
           <div class="slice-wrap">
-            <div class="image-slice--full image-slice" :style="`background-image: url(${entry.member_avatar.large.url})`"></div>
+            <div class="image-slice--full image-slice lazy" v-lazy:background-image="entry.member_avatar.large.url"></div>
           </div>
         </div>
       </nuxt-link>

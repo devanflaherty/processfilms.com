@@ -2,6 +2,38 @@
   <section id="home" class="page">
 
     <heroSlider @sliderReady="setSliderAsReady" :gallery="home.hero_slider" v-if="home.hero_slider" />
+
+    <section id="vision" class="padding-large section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-12">
+            <transition name="fade-in">
+              <div class="vision-title" appear>
+                <h1 v-if="!loading" v-scroll-reveal="{duration: 1000, scale: 0.9, distance: '100px'}">{{$prismic.asText(home.hero_vision)}}</h1>
+              </div>
+            </transition>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reel" class="is-marginless is-paddingless">
+      <div class="container">
+        <div class="reel">
+          <responsiveVideo 
+            :embed="home.work_reel" 
+            v-scroll-reveal="{duration: 1000, scale: 1, distance: '200px', delay: 200, viewFactor: 0.1}"/>
+        </div>
+      </div>
+    </section>
+        
+    <section id="showcase" class="section is-marginless is-paddingless" v-if="home.featured_work.length > 0">    
+      <div class="work-cards container">
+        <div class="columns is-multiline is-marginless">
+          <workCard v-for="(post, index) in home.featured_work" :key="index" :post="post.work_post" :index="index"/>
+        </div>
+      </div>
+    </section>
     
     <clientLogos :logos="home.clients" :clientsInfo="clientsInfo" v-if="home.clients.length > 1"/>
   </section>
@@ -36,6 +68,10 @@ export default {
         autoAlpha: 0
       }, 0.25)
 
+      // leave.to(window, 0.1, { scrollTo: 0 })
+      leave.addCallback(() => {
+        window.scrollTo(0, 0)
+      })
       leave.addCallback(() => {
         done()
       })
@@ -74,6 +110,7 @@ export default {
   },
   mounted () {
     if (this.document) {
+      this.$waypoint.enableWaypoints()
       this.$store.dispatch('toggleLoading', false)
       this.$store.dispatch('toggleNavVis', true)
 
