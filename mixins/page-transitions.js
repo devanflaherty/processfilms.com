@@ -26,9 +26,6 @@ export const leave = function (el, done) {
   }, 0.25)
 
   leave.addCallback(() => {
-    window.scrollTo(0, 0)
-  })
-  leave.addCallback(() => {
     done()
   })
 }
