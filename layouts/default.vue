@@ -1,14 +1,5 @@
 <template>
   <main class="main">
-    <transition v-if="loading" name="fade-in">
-      <div id="loader">
-        <div class="wrap">
-          <!-- <img src="/images/rings.svg"> -->
-          <Logo :animate="navVis" />
-        </div>
-      </div>
-      <!-- <h1 v-if="loading && $route.name !== 'index'" class="home-loading has-text-white is-size-1">||</h1> -->
-    </transition>
     <div id="backgroundTransition" class="background-transition">
       <span class="bgSpan"></span>
     </div>
@@ -19,7 +10,6 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo'
 import SiteNav from '~/components/SiteNav'
 import SiteFooter from '~/components/SiteFooter'
 
@@ -28,7 +18,6 @@ import {beforeEnter, enter, leave} from '~/mixins/page-transitions'
 
 export default {
   components: {
-    Logo,
     SiteNav,
     SiteFooter
   },
@@ -105,20 +94,5 @@ export default {
   .wrap {
     width: 40px;
   }
-  // h1 {
-  //   color: black;
-  //   font-weight: 800;
-  //   span {
-  //     font-size: 44px!important;
-  //     color: black;
-  //     display: inline-block;
-  //   }
-  //   span:nth-child(1) {
-  //     animation: wave-left infinite 2s;
-  //   }
-  //   span:nth-child(3) {
-  //     animation: wave-right infinite 2s;
-  //   }
-  // }
 }
 </style>
