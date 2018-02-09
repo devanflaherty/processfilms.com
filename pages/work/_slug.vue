@@ -27,31 +27,29 @@
                 <div class="work-approach rich-text"
                   v-if="entry.approach.length > 0"
                   v-html="$prismic.asHtml(entry.approach)"
-                  v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom'}"></div>
-                </div>
-
-                <div class="column is-5 is-offset-1-tablet">
-                  <ul class="roster-list">
-                    <li class="roster-member" v-for="(member, index) in entry.work_roster" :key="index" :class="{'roster-member--hidden': index > 2}">
-                      <h6>{{member.member_position}}</h6>
-                      <prismic-link class="hilite" v-if="member.member_link.id" :link="member.member_link">{{member.member_name}}</prismic-link>
-                      <span v-else>{{member.member_name}}</span>
-                    </li>
-                  </ul>
-                  <no-ssr>
-                    <button v-if="entry.work_roster.length > 3" class="roster-list-button" :class="{'flip-icon': showRoster}" @click="showAllRoster">
-                      <span></span>
-                      <span></span>
-                      <!-- <i class="fas fa-chevron-down" key="1"></i> -->
-                    </button>
-                  </no-ssr>
+                  v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom'}">
                 </div>
               </div>
-            </div>
 
-          </div>
-        </div>
-      </div>
+              <div class="column is-5 is-offset-1-tablet">
+                <ul class="roster-list">
+                  <li class="roster-member" v-for="(member, index) in entry.work_roster" :key="index" :class="{'roster-member--hidden': index > 2}">
+                    <h6>{{member.member_position}}</h6>
+                    <prismic-link class="hilite" v-if="member.member_link.id" :link="member.member_link">{{member.member_name}}</prismic-link>
+                    <span v-else>{{member.member_name}}</span>
+                  </li>
+                </ul>
+                <no-ssr>
+                  <button v-if="entry.work_roster.length > 3" class="roster-list-button" :class="{'flip-icon': showRoster}" @click="showAllRoster">
+                    <span></span>
+                    <span></span>
+                  </button>
+                </no-ssr>
+              </div><!-- close column -->
+            </div><!-- close columns -->
+          </div><!-- close column -->
+        </div><!-- close columns -->
+      </div><!-- close container -->
     </section>
 
     <!-- Repeatable Slices -->
@@ -66,14 +64,14 @@
           <div class="column is-6" v-if="prevPost">
             <nuxt-link class="post-button prev" :to="`/work/${prevPost.uid}`">
               <h5 class="is-size-5">Previous</h5>
-              <h3 class="is-size-3">{{$prismic.asText(prevPost.title)}}</h3>
+              <h3 class="is-size-3 post-button-label">{{$prismic.asText(prevPost.title)}}</h3>
               <!-- <span class="is-size-6 arrow arrow-left">{{prevPost.position}}</span> -->
             </nuxt-link>
           </div>
           <div class="column is-6" v-if="nextPost">
             <nuxt-link class="post-button next" :to="`/work/${nextPost.uid}`">
               <h5 class="is-size-5">Next</h5>
-              <h3 class="is-size-3">{{$prismic.asText(nextPost.title)}}</h3>
+              <h3 class="is-size-3 post-button-label">{{$prismic.asText(nextPost.title)}}</h3>
               <!-- <span class="is-size-6 arrow next">{{nextMember.position}}</span> -->
             </nuxt-link>
           </div>

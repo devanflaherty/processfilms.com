@@ -21,11 +21,19 @@
     border: none;
     color: white;
     h5, span {
+      opacity: .4;
+      transition: all 0.5s ease;
+    }
+    .post-button-label {
+      opacity: 0.75;
       transition: all 0.5s ease;
     }
     &:hover {
       h5, span {
-        opacity: 0.33;
+        opacity: 0.25;
+      }
+      .post-button-label {
+        opacity: 1;
       }
     }
     &.next {
