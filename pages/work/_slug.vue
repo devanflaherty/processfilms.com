@@ -38,7 +38,13 @@
                       <span v-else>{{member.member_name}}</span>
                     </li>
                   </ul>
-                  <button v-if="entry.work_roster.length > 3" class="roster-list-button" @click="showAllRoster">+</button>
+                  <no-ssr>
+                    <button v-if="entry.work_roster.length > 3" class="roster-list-button" :class="{'flip-icon': showRoster}" @click="showAllRoster">
+                      <span></span>
+                      <span></span>
+                      <!-- <i class="fas fa-chevron-down" key="1"></i> -->
+                    </button>
+                  </no-ssr>
                 </div>
               </div>
             </div>
@@ -293,9 +299,48 @@ export default {
     border: none;
     outline: none;
     height: 2rem;
-    width: 2rem;
+    width: 26px;
     padding: 0;
     line-height: 1;
+    position: relative;
+    display: block;
+    cursor: pointer;
+    &:hover span {
+      transform: translatey(8px);
+    }
+    span {
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      background: white;
+      height: 3px;
+      width: 16px;
+      border-radius: 4px;
+      transform-origin: center; 
+      transition: all 1s ease;
+      &:first-of-type {
+        transform: rotate(45deg);
+      }
+      &:last-of-type {
+        right: 0;
+        transform: rotate(-45deg);
+      }
+    }
+    &.flip-icon {
+      &:hover span {
+        transform: translatey(-8px);
+      }
+      span {
+        &:first-of-type {
+          transform: rotate(-45deg);
+        }
+        &:last-of-type {
+          transform: rotate(45deg);
+        }
+      }
+    }
   }
 }
 
