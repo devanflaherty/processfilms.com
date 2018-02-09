@@ -2,7 +2,6 @@
   <div id="mobileNav" class="mobileNav" :class="{'mobileNav--is-active': mobileNav}">
     <div class="mobileNav__wrap">
       <div class="mobileNav__wrap__mainNav">
-        <h6>{{$prismic.asText(navigationMenu.title)}}</h6>
         <div class="navbar-item mobile-item" v-for="(link, index) in navigationMenu.menu" :key="index">
           <prismic-link :link="link.link_url">{{link.link_label}}</prismic-link>
         </div>
