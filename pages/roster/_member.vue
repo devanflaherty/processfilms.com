@@ -7,6 +7,10 @@
       <heroLoader class="roster-hero-image" :hero-image="entry.member_hero"/>
       <!-- <div class="hero-body"></div> -->
     </section>
+
+    <section id="showcase" v-if="entry.related_work.length > 0">    
+      <workCard class="is-full" v-for="(post, index) in entry.related_work" :key="index" :post="post.work_post" />
+    </section>
     
     <section class="section member-details">
       <div class="container">
@@ -28,15 +32,6 @@
           </div>
         </div>
       </div><!-- close container -->
-    </section>
-
-    <section id="showcase" class="section" v-if="entry.related_work.length > 0">    
-      <div class="work-cards container">
-        <h2>Films I've worked on</h2>
-        <div class="columns is-multiline is-marginless">
-          <workCard v-for="(post, index) in entry.related_work" :key="index" :post="post.work_post" :index="index"/>
-        </div>
-      </div>
     </section>
     
     <!-- Repeatable Slices -->

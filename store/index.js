@@ -189,7 +189,7 @@ const createStore = () => {
       },
       async getRosterMember (context, memberUid) {
         let ctx = await context.dispatch('setCtx')
-        let member = await ctx.api.getByUID('roster_posts', memberUid, {'fetchLinks': ['work_posts.title, work_posts.feature_image, work_posts.involvement, work_posts.description, work_posts.primary_color']})
+        let member = await ctx.api.getByUID('roster_posts', memberUid, {'fetchLinks': ['work_posts.title, work_posts.client, work_posts.feature_image, work_posts.involvement, work_posts.description, work_posts.primary_color']})
         return member
       },
       async getWork (context) {

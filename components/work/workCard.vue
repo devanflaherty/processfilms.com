@@ -8,13 +8,13 @@
       :data-wio-id="post.id">
       
       <nuxt-link :to="`/work/${post.uid}`">
-        <div class="work-quick-info is-overlay columns" :class="alignment">
-          <div class="work-quick-title column">
-            <h2 class="quick-title">
-              {{$prismic.asText(entry.title)}}
-              <span>{{entry.client}}</span>
-            </h2>
-          </div>
+        <div class="work-quick-info is-overlay" :class="alignment">
+          <h2 class="quick-title">
+            {{$prismic.asText(entry.title)}}
+          </h2>
+          <h3>
+            {{entry.client}}
+          </h3>
         </div>
 
         <div class="image-loader" ref="imageLoader">
@@ -88,46 +88,32 @@ export default {
       z-index: 10;
       height: 100%;
       margin: 0;
-      padding: 2rem;
       align-items: center;
       justify-content: center;
-      transition: all 0.5s ease;
-      @include mobile() {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        .column {
-          flex: 0 1 auto;
-        }
-      }
-      h2.quick-title {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      justify-content: center;
+      h2 {
         position: relative;
         color: white;
-        transition: all 0.5s ease;
+        transition: all .66s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         display: inline-block;
+        opacity: 0;
+        transform: translate(-20px, 0);
         @include mobile () {
-          font-size: 1.66rem;
+          font-size: 2rem;
         }
         @include tablet () {
-          font-size: 1.125rem;
+          font-size: 1.5rem;
         }
         @include desktop () {
-          font-size: 1.125rem;
-        }
-        &:after {
-          content: '';
-          display: block;
-          width: 0;
-          height: 2px;
-          position: absolute;
-          bottom: 0;
-          background: $white;
-          transition: all 0.5s cubic-bezier(.97,0,.51,1.5);
+          font-size: 1.5rem;
         }
       }
     }
-    h2.quick-title span {
+    h3 {
       display: block;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -146,16 +132,9 @@ export default {
   &:hover {
     .work-quick-info {
       background: rgba(black, 0.33);
-      h2.quick-title {
-        transform: translate(50px, 0);
-        &:after {
-          animation: spanIn .66s reverse;
-        }
-      }
-      &.has-text-right {
-        h2.quick-title {
-          transform: translate(-50px, 0);
-        }
+      h2 {
+        opacity: 1;
+        transform: translate(0, 0);
       }
     }
     .image-loader {
