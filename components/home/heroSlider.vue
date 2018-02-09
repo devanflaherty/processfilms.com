@@ -9,15 +9,24 @@
             <div class="slide-caption is-overlay">
               <div class="container">
                 <div class="caption-wrap" :class="{'link-hover': slide.slide_link.url}">
-                  <div class="caption" v-if="slide.slide_description">
+                  <a v-if="slide.slide_link.url" class="slide-link" :href="$prismic.asLink(slide.slide_link)">
+                    <div class="caption" v-if="slide.slide_description">
+                      <div class="rich-text"
+                        data-swiper-parallax="-300" 
+                        data-swiper-parallax-duration="500"
+                        data-swiper-parallax-opacity="0.5"
+                        v-html="$prismic.asHtml(slide.slide_description)"></div>
+                    </div>
+
+                    <span class="link-text arrow">{{slide.link_label}}</span>
+                  </a>
+                  <div v-else-if="slide.slide_description && !slide.slide_link.url" class="caption">
                     <div class="rich-text"
                       data-swiper-parallax="-300" 
                       data-swiper-parallax-duration="500"
                       data-swiper-parallax-opacity="0.5"
                       v-html="$prismic.asHtml(slide.slide_description)"></div>
                   </div>
-
-                  <a v-if="slide.slide_link.url" class="slide-link arrow" :href="$prismic.asLink(slide.slide_link)">{{slide.link_label}}</a>
                 </div>
               </div>
             </div>
@@ -224,22 +233,6 @@ export default {
       @include mobile() {
         width: 100%;
       }
-      &.link-hover {
-        transition: all 0.5s ease;
-        &:hover {
-          .caption {
-            opacity: 0;
-            transform: translate3d(0, -20px, 0) rotateX(90deg);
-            perspective: 100px;
-          }
-          .slide-link {
-            transform: translate3d(0, -20px, 0) rotateX(0deg);
-            perspective: 100px;
-            opacity: 1;
-            visibility: visible;
-          }
-        }
-      }
       .caption {
         transition: all 0.5s ease;
         position: relative;
@@ -250,19 +243,29 @@ export default {
         -webkit-font-smoothing: antialiased;
         p {
           margin-bottom: 0;
-          font-size: 3rem;
+          font-size: 4rem;
           line-height: 1;
           @include mobile() {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
           }
         }
       }
     }
-    .slide-link {
-      transition: all 0.5s ease;
-      transform: translate3d(0, 0, 0) rotateX(-90deg);
-      opacity: 0;
-      visibility: hidden;
+
+    .link-hover {
+      span {
+        transition: all 0.5s ease;
+        display: block;
+      }
+      &:hover {
+        .caption {
+          transform: translate3d(0, -20px, 0) rotateY(20deg);
+          perspective: 100px;
+        }
+        span {
+          transform: translate3d(0, -10px, 0);
+        }
+      }
     }
   }
 }
@@ -304,20 +307,6 @@ export default {
   .slide-link {
     color: $black;
   }
-  // .pagination-bullet {
-  //   span {
-  //     color: rgba(black, 0.5);
-  //   }
-  //   &:hover span, &.active span {
-  //     color: rgba(black, 1);
-  //   }
-  //   &::after {
-  //     background: rgba(black, 1);
-  //   }
-  //   &::before {
-  //     background: rgba(black, 0.25);
-  //   }
-  // }
 }
 
 .slide-ui-Light {
@@ -332,23 +321,6 @@ export default {
   .slide-link {
     color: $white;
   }
-  // .pagination-bullet {
-  //   span {
-  //     color: rgba(white, 0.5);
-  //   }
-  //   &:hover span, &.active span {
-  //     color: rgba(white, 1);
-  //   }
-  //   &::after {
-  //     background: rgba(white, 1);
-  //   }
-  //   &::before {
-  //     background: rgba(white, 0.25);
-  //   }
-  //   &.active {
-  //     color: white;
-  //   }
-  // }
 }
 
 @keyframes progress {
