@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar is-transparent" :style="`background-color: ${navColor}`">
     <style>
-      .navbar-item:after {
+      .navbar-item a:after {
         background: {{primaryColor}}!important;
       }
       .nav-burg span {
@@ -13,24 +13,24 @@
         <div class="navbar-item" >
           <Logo :animate="navVis" :scrolledLogo="scrolled"/>
         </div>
-        <div class="nav-burg" :class="{'is-active': mobileNav}" @click="showMobileNav">
-          <span :style="`background-color: ${primaryColor}`"></span>
-          <span :style="`background-color: ${primaryColor}`"></span>
+      </div>
+    </transition>
+    <transition name="nav-in" appear>
+      <div id="navMenu" class="navbar-menu" v-if="navVis">
+        <div class="navbar-end">
+          
+          <div v-if="breakpoint >= 3" class="navbar-item" :class="{'navbar-item--is-hidden': mobileNav}" v-for="(link, index) in navigationMenu.menu" :key="index">
+            <prismic-link :style="`color: ${primaryColor}`" :link="link.link_url">{{link.link_label}}</prismic-link>
+          </div>
+          
+          <div class="nav-burg" :class="{'is-active': mobileNav}" @click="showMobileNav">
+            <span :style="`background-color: ${primaryColor}`"></span>
+            <span :style="`background-color: ${primaryColor}`"></span>
+          </div>
+
         </div>
       </div>
     </transition>
-    <!-- <transition name="nav-in" appear>
-      <div id="navMenu" class="navbar-menu" v-if="breakpoint >= 3 && navVis">
-        <transition name="fade-in" appear>
-          <div class="navbar-end" v-if="mobileNav || breakpoint > 2">
-            <nuxt-link class="navbar-item" :to="$prismic.asLink(link.link_url)" v-for="(link, index) in navigationMenu.menu" :key="index"
-              :style="`color: ${primaryColor}!important`">
-              {{link.link_label}}
-            </nuxt-link>
-          </div>
-        </transition>
-      </div>
-    </transition> -->
 
     <MobileNav :mobileNav="mobileNav"/>
   </nav>
@@ -136,7 +136,6 @@ export default {
     z-index: 100;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
     .navbar-item {
       padding: 0;
     }
@@ -151,41 +150,47 @@ export default {
       }
     }
   }
-  // .navbar-menu {
-  //   z-index: 90;
-  //   padding-left: 0;
-  //   padding-right: 0;
-  //   .navbar-end {
-  //     align-items: center;
-  //   }
-  //   .navbar-item {
-  //     color: $black;
-  //     font-size: 1rem;
-  //     position: relative;
-  //     padding-left: 0;
-  //     padding-right: 0;
-  //     margin: 0 2rem; 
-  //     &:after {
-  //       content: '';
-  //       position: absolute;
-  //       bottom: 0;
-  //       left: 0;
-  //       right: 0;
-  //       margin: 0 auto;
-  //       display: block;
-  //       height: 2px;
-  //       background: transparent;
-  //       width: 0;
-  //       transition: all 0.5s ease;
-  //     }
-  //     &:hover {
-  //       &:after {
-  //         background: $grey-light;
-  //         width: 100%;
-  //       }
-  //     }
-  //   }
-  // }
+  .navbar-menu {
+    z-index: 90;
+    padding-left: 0;
+    padding-right: 0;
+    .navbar-end {
+      align-items: center;
+    }
+    .navbar-item {
+      padding-left: 0;
+      padding-right: 0;
+      margin: 0 2rem; 
+      transition: all 0.5s ease;
+      &--is-hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+      a {
+        color: $white;
+        font-size: 1rem;
+        position: relative;
+        &:after {
+          content: '';
+          background: inherit;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+          display: block;
+          height: 2px;
+          width: 0;
+          transition: all 0.5s ease;
+        }
+        &:hover {
+          &:after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }
 
 .nav-burg {

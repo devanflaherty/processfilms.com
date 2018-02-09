@@ -109,6 +109,16 @@ export default {
       .rich-text {
         a, span {
           font-size: 1rem;
+          color: $white!important;
+        }
+        a:after {
+          background: $white!important;
+        } 
+        a:before {
+          background: $white!important;
+        }
+        a:hover {
+          color: $black!important;
         }
       }
     }
