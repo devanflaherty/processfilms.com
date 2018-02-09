@@ -82,7 +82,7 @@ export default {
     padding-bottom: 3rem;
     top: 140px;
     transition: all 0.5s ease;
-    @include mobile () {
+    @include touch () {
       top: 80px;
       padding-left: .5rem;
       padding-right: .5rem;

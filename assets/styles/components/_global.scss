@@ -16,7 +16,7 @@ main {
   padding-top: 6rem;
   padding-bottom: 8rem;
 }
-@include mobile() {
+@include touch() {
   .push-top {
     padding-top: 80px;
   }

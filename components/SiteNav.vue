@@ -13,6 +13,10 @@
         <div class="navbar-item" >
           <Logo :animate="navVis" :scrolledLogo="scrolled"/>
         </div>
+        <div v-if="breakpoint < 3" class="nav-burg" :class="{'is-active': mobileNav}" @click="showMobileNav">
+          <span :style="`background-color: ${primaryColor}`"></span>
+          <span :style="`background-color: ${primaryColor}`"></span>
+        </div>
       </div>
     </transition>
     <transition name="nav-in" appear>
@@ -127,7 +131,7 @@ export default {
   &.bg-none {
     background: none;
   }
-  @include mobile() {
+  @include touch() {
     height: 80px;
     padding: .8rem 1rem;
   }
