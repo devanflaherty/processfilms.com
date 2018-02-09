@@ -74,6 +74,9 @@ export default {
       .member-info {
         width: 100%;
         padding: 3rem;
+        & > * {
+          transition: all 0.5s cubic-bezier(0.2, 0.25, 0.6, 0.9);
+        }
         .is-director {
           font-size: .75rem;
           color: $white;
@@ -92,9 +95,6 @@ export default {
         }
       }
     }
-    .image-loader {
-      transition: all 15s ease;
-    }
     img {
       display: block;
       transition: all 15s ease;
@@ -107,8 +107,14 @@ export default {
     }
   }
   &:hover {
+    .member-info > * {
+      transform: translate(0, -20px);
+    }
     .image-loader {
-      transform: scale(1.3);
+      transform: scale(1.075);
+      &:before {
+        opacity: 0.5;
+      }
     }
   }
   &.reveal {
@@ -121,10 +127,21 @@ export default {
     display: flex;
     @include overlay();
     overflow: hidden;
+    transition: transform 1s ease;
+    &:before {
+      background-color: black;
+      content: '';
+      display: block;
+      @include overlay ();
+      opacity: 0;
+      z-index: 10;
+      transition: opacity 0.5s ease;
+    }
     .slice-wrap {
       flex: 1 0 auto;
       overflow: hidden;
       position: relative;
+      z-index: 5;
       .image-slice {
         position: absolute;
         top: 0;
