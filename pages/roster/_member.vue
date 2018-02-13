@@ -3,13 +3,11 @@
     :data-wio-id="document.id" 
     id="memberPage" 
     class="page push-top">
-    <section class="hero roster-hero is-large step">
-      <heroLoader class="roster-hero-image" :hero-image="entry.member_hero"/>
-      <!-- <div class="hero-body"></div> -->
-    </section>
-
     <section id="showcase" v-if="entry.related_work.length > 0">    
       <workCard class="is-full" v-for="(post, index) in entry.related_work" :key="index" :post="post.work_post" />
+    </section>
+    <section v-else class="hero roster-hero is-large step">
+      <heroLoader class="roster-hero-image" :hero-image="entry.member_hero"/>
     </section>
     
     <section class="section member-details">

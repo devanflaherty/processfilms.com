@@ -88,13 +88,11 @@ export default {
       z-index: 10;
       height: 100%;
       margin: 0;
-      align-items: center;
-      justify-content: center;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      align-items: center;
       justify-content: center;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       h2 {
         position: relative;
         color: white;
@@ -103,13 +101,10 @@ export default {
         opacity: 0;
         transform: translate(-20px, 0);
         @include mobile () {
-          font-size: 2rem;
+          font-size: 1rem;
         }
         @include tablet () {
-          font-size: 1.5rem;
-        }
-        @include desktop () {
-          font-size: 1.5rem;
+          font-size: 0.75rem;
         }
       }
     }
@@ -119,13 +114,10 @@ export default {
       letter-spacing: 2px;
       font-weight: 600;
       @include mobile () {
-        font-size: 1.33rem;
+        font-size: 1rem;
       }
       @include tablet () {
-        font-size: .75rem;
-      }
-      @include desktop () {
-        font-size: .75rem;
+        font-size: 0.75rem;
       }
     }
   }

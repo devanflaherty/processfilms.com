@@ -1,12 +1,12 @@
 .article-pagination {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 10rem;
   margin-bottom: 5rem;
   .column {
     @include mobile () {
-      flex: 1 0 100%;
+      flex: 1 0 50%;
     }
   }
   &.align-left {
@@ -23,10 +23,16 @@
     h5, span {
       opacity: .4;
       transition: all 0.5s ease;
+      @include mobile () {
+        font-size: 1rem!important;
+      }
     }
     .post-button-label {
       opacity: 0.75;
       transition: all 0.5s ease;
+      @include mobile () {
+        font-size: 1.25rem!important;
+      }
     }
     &:hover {
       h5, span {

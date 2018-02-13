@@ -51,11 +51,14 @@ export default {
 .slide-ui {
   position: absolute;
   width: 100%;
-  bottom: 0;
+  bottom: 80px;
   left: 0;
   right: 0;
-  height: 200px;
+  height: 80px;
   z-index: 20;
+  @include mobile () {
+    bottom: 40px;
+  }
   .container {
     height: 100%;
     @include touch() {
@@ -70,7 +73,7 @@ export default {
   z-index: 15;
   position: absolute;
   width: 100%;
-  bottom: 100px;
+  bottom: 0;
   background: none;
   display: flex;
   align-items: center;
@@ -82,6 +85,13 @@ export default {
     position: relative;
     margin: 0 2px;
     padding-bottom: .75rem;
+    @include mobile () {
+      padding: 2rem 0;
+      &::after, &::before {
+        top: 0;
+        margin: auto;
+      }
+    }
     span {
       font-size: 1rem;
       display: inline-block;
@@ -90,6 +100,9 @@ export default {
       display: block;
       &.pagination-slide-title {
         font-weight: $mediumW;
+      }
+      @include mobile () {
+        display: none;
       }
     }
     &:hover span {

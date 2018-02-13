@@ -6,7 +6,10 @@
         <div class="roster-details column is-6">
           <div class="title"
             v-html="$prismic.asHtml(page.page_headline)"
-            v-scroll-reveal="{scale: 1, distance: '100px', origin: 'left'}"></div>          
+            v-scroll-reveal="{scale: 1, distance: '100px', origin: 'left'}"></div>
+            <div class="rich-text"
+              v-html="$prismic.asHtml(page.page_statement)"
+              v-scroll-reveal="{duration: 1000, scale: 1, distance: '100px', origin: 'bottom'}"></div>          
         </div>
       
         <!-- ROSTER LOOP-->

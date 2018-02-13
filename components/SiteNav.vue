@@ -38,7 +38,6 @@
 
     <MobileNav :mobileNav="mobileNav"/>
   </nav>
-</transition>
 </template>
 
 <script>
@@ -143,16 +142,6 @@ export default {
     .navbar-item {
       padding: 0;
     }
-
-    .navbar-burger {
-      transition: all 0.5s ease;
-      background: none;
-      position: relative;
-      z-index: 10;
-      &.is-active span {
-        background: black;
-      }
-    }
   }
   .navbar-menu {
     z-index: 90;
@@ -208,6 +197,9 @@ export default {
   flex: 0 1 auto;
   cursor: pointer;
   transition: all 0.5s ease;
+  @include desktop () {
+    display: none;
+  }
   &:hover {
     background: none;
   }

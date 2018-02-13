@@ -259,6 +259,9 @@ export default {
 
 .hero {
   margin-bottom: 100px;
+  @include mobile () {
+    margin-bottom: 0;
+  }
   .hero-body {
     padding: 0;
   }
