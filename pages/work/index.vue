@@ -82,7 +82,7 @@ export default {
       return this.page.hero_image.large.url
     },
     seoUrl () {
-      return 'https://processfilms.com' + this.$route.fullPath
+      return 'https://processcreative.tv' + this.$route.fullPath
     }
   },
   beforeMount () {

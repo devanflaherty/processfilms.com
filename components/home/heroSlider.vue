@@ -77,11 +77,10 @@ export default {
         observer: true,
         lazyLoading: true,
         parallax: true,
-        autoplay: false,
-        // autoplay: {
-        //   delay: 5000,
-        //   disableOnInteraction: false
-        // },
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false
+        },
         on: {
           slideChange: (swiper) => {
             if (this.$refs.mySwiper) {
@@ -136,7 +135,7 @@ export default {
     },
     playSlider () {
       this.isInit().then(() => {
-        // this.$refs.mySwiper.swiper.autoplay.start()
+        this.$refs.mySwiper.swiper.autoplay.start()
       })
     },
     initSwiper () {

@@ -31,7 +31,7 @@
       </div>
 
       <div id="copyright" class="container">
-        <p>&copy; 2018 Process Films.<br class="is-hidden-tablet"> All Rights Reserved.</p>
+        <p>&copy; 2018 Process Creative.<br class="is-hidden-tablet"> All Rights Reserved.</p>
       </div>
     </div>
   </footer>

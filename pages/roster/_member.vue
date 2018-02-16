@@ -43,14 +43,14 @@
           <div class="column is-6" v-if="prevMember">
             <nuxt-link class="post-button prev" :to="`/roster/${prevMember.uid}`">
               <h5 class="is-size-5">Meet</h5>
-              <h3 class="is-size-3">{{$prismic.asText(prevMember.name)}}</h3>
+              <h3 class="is-size-3 post-button-label">{{$prismic.asText(prevMember.name)}}</h3>
               <span class="is-size-6 arrow arrow-left">{{prevMember.position}}</span>
             </nuxt-link>
           </div>
           <div class="column is-6" v-if="nextMember">
             <nuxt-link class="post-button next" :to="`/roster/${nextMember.uid}`">
               <h5 class="is-size-5">Meet</h5>
-              <h3 class="is-size-3">{{$prismic.asText(nextMember.name)}}</h3>
+              <h3 class="is-size-3 post-button-label">{{$prismic.asText(nextMember.name)}}</h3>
               <span class="is-size-6 arrow next">{{nextMember.position}}</span>
             </nuxt-link>
           </div>
@@ -64,10 +64,8 @@
 import {beforeEnter, enter, leave} from '~/mixins/page-transitions'
 
 if (process.browser) {
-  // var scrollama = require('scrollama')
   var ScrollMagic = require('ScrollMagic')
   require('animation.gsap')
-  // require('debug.addIndicators')
 }
 export default {
   head () {

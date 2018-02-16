@@ -1,8 +1,8 @@
 const path = require('path')
 const UglifyJSWebpackPlugin = require('uglifyjs-webpack-plugin')
 
-let url = 'https://processfilms.com'
-let title = 'Process Films'
+let url = 'https://processcreative.tv'
+let title = 'Process Creative'
 let desc = 'We are an agency rooted in film production. Our in-house team of directors, designers and producers is equipped to serve individuals, agencies and brands with creative solutions.'
 let unfurl = `${url}/unfurl.jpg`
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    titleTemplate: '%s - Process Films',
+    titleTemplate: '%s - Process Creative',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

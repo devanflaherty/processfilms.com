@@ -1,11 +1,11 @@
 {
-  "name": "processfilms.com",
+  "name": "processcreative.tv",
   "version": "1.0.0",
   "description": "Process Films Prismic and Nuxtjs site",
   "author": "Devan Flaherty <hello@devanflaherty.com>",
   "private": true,
   "now": {
-    "alias": "processfilms"
+    "alias": "processcreative.tv"
   },
   "scripts": {
     "dev": "backpack dev",

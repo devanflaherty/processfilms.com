@@ -186,7 +186,7 @@ export default {
       return this.entry.feature_image.large.url
     },
     seoUrl () {
-      return 'https://processfilms.com' + this.$route.fullPath
+      return 'https://processcreative.tv' + this.$route.fullPath
     },
     contrast () {
       return {
